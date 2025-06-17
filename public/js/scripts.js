@@ -1,5 +1,7 @@
 function initializeDataTable(tableSelector, ajaxRoute, columnsConfig) {
   var table = $(tableSelector).DataTable({
+    destroy: true,
+    responsive: true,
     processing: true,
     serverSide: true,
     ajax: route(ajaxRoute),

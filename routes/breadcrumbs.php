@@ -18,10 +18,11 @@ Breadcrumbs::for('admin.hasil-panen.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
     $trail->push('Pemanenan', route('admin.hasil-panen.index'));
 });
-Breadcrumbs::for('admin.hasil-panen.create', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('admin.hasil-panen.show', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.hasil-panen.index');
-    $trail->push('Tambah', route('admin.hasil-panen.create'));
+    $trail->push('Tambah', route('admin.hasil-panen.show', 'id'));
 });
+
 Breadcrumbs::for('admin.pemupukan.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
     $trail->push('Pemupukan', route('admin.pemupukan.index'));

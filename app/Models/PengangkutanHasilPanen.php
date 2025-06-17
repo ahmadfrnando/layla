@@ -30,6 +30,20 @@ class PengangkutanHasilPanen extends Model
                 } 
             }
         });
+
+        static::updating(function ($model) {
+            if ($model->muatan_pabrik != null && $model->tandan_pabrik != null) {
+
+                $model->muatan_hilang = $model->muatan_afdeling - $model->muatan_pabrik;
+                $model->tandan_hilang = $model->tandan_afdeling - $model->tandan_pabrik;
+                if ($model->muatan_hilang < 0) {
+                    $model->muatan_hilang = 0;
+                }
+                if ($model->tandan_hilang < 0) {
+                    $model->tandan_hilang = 0;
+                } 
+            }
+        });
     }
 
     public function afdeling()

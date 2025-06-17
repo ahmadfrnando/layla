@@ -1,43 +1,36 @@
-function handleSaveChanges(formId, buttonId, url, id=null) {
-
-     if (id === null) {
-        id = $(buttonId).data('id');
-    }
-    var id = $(buttonId).data('id');
-   if (id) {
-        var formData = new FormData($(formId)[0]);
-        formData.append('id', id);
-    } else {
-        var formData = new FormData($(formId)[0]);
-    }
-    var formData = new FormData($(formId)[0]);
-
-    formData.append('id', id);
-    $.ajax({
-        url: url, 
-        type: 'POST',
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function(response) {
-            Swal.fire({
-                icon: 'success',
-                title: `${response.message}`,
-                showConfirmButton: false,
-                timer: 2000
-            });
-            $('.btn-close').click();
-
-            table.ajax.reload(null, false);
-        },
-        error: function(xhr, status, error) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Failed to save data: ' + error,
-                showConfirmButton: false,
-                timer: 2000
-            });
-            $('.btn-close').click();
-        }
+function submitFormAjax(formSelector, actionUrl, successMessage, redirectUrl) {
+    $(formSelector).on('submit', function(e) {
+        e.preventDefault();
+        
+        let form = $(this);
+        $.ajax({
+            url: actionUrl,
+            method: 'POST',
+            data: form.serialize(),
+            headers: {
+                'X-CSRF-TOKEN': $('input[name="_token"]').val()
+            },
+            success: function(response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: successMessage || `${response.message}`,
+                    confirmButtonText: 'Oke',
+                    confirmButtonColor: '#5e72e4'
+                }).then((result) => {
+                    if (result.isConfirmed && redirectUrl) {
+                        window.location.href = redirectUrl;
+                    }
+                });
+            },
+            error: function(xhr) {
+                if (xhr.status === 422) {
+                    let res = xhr.responseJSON;
+                    let errorMessages = Object.values(res.errors).flat().join('\n');
+                    Swal.fire('Validasi Gagal', errorMessages, 'error');
+                } else {
+                    Swal.fire('Gagal', xhr.responseJSON?.message || 'Terjadi kesalahan.', 'error');
+                }
+            }
+        })
     });
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\PekerjaController;
 use App\Http\Controllers\Admin\PemanenanController;
 use App\Http\Controllers\Admin\PemeliharaanController;
 use App\Http\Controllers\Admin\PemupukanController;
+use App\Http\Controllers\AjaxLoadController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Manajer\DashboardController as ManajerDashboardController;
 use App\Models\Pemeliharaan;
@@ -24,6 +25,10 @@ use App\Models\PengangkutanHasilPanen;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::middleware(['web'])->group(function () {
+    // route yang ada
+});
 
 Route::fallback(function () {
     return response()->view('errors.404', [], 404);
@@ -57,11 +62,13 @@ Route::get('/test-dashboard', function () {
     return view('template.dashboard');
 });
 Route::get('/get-data', function () {
-    $data = PengangkutanHasilPanen::with('afdeling')
-        ->whereNotNull('muatan_pabrik')
-        ->whereNotNull('tandan_pabrik')
-        ->orderBy('tanggal', 'desc')
-        ->get();
-        
-    return response()->json(['data' => $data]);
+    $pengangkutan = \App\Models\Pengangkutan::whereHas('pengangkutanHasilPanen', function ($query) {
+        $query->where(function ($query) {
+            $query->whereNull('muatan_pabrik')
+                ->orWhereNull('tandan_pabrik');
+        });
+    })->get()->toArray();
+    return response()->json($pengangkutan);
 })->name('get-data');
+
+Route::get('/get-kode-pengangkutan', [AjaxLoadController::class, 'getKodePengangkutan'])->name('get-kode-pengangkutan');

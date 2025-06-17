@@ -12,4 +12,8 @@ class Pengangkutan extends Model
     protected $table = 'pengangkutan';
     protected $guarded = ['id'];
     
+    public function pengangkutanHasilPanen()
+    {
+        return $this->hasOne(PengangkutanHasilPanen::class);
+    }
 }

@@ -19,11 +19,11 @@ class PengangkutanHasilPanenFactory extends Factory
         return [
             'tanggal' => $this->faker->dateTimeBetween('-1 year', 'now'),
             'user_id' => 1,
-            'pengangkutan_id' => $this->faker->numberBetween(1, 5),
+            'pengangkutan_id' => $this->faker->numberBetween(6, 10),
             'muatan_afdeling' => $this->faker->numberBetween(1, 1000),
             'tandan_afdeling' => $this->faker->numberBetween(1, 1000),
-            'muatan_pabrik' => $this->faker->numberBetween(1, 1000),
-            'tandan_pabrik' => $this->faker->numberBetween(1, 1000),
+            // 'muatan_pabrik' => $this->faker->numberBetween(1, 1000),
+            // 'tandan_pabrik' => $this->faker->numberBetween(1, 1000),
             'keterangan' => $this->faker->optional()->sentence(),
         ];
     }
