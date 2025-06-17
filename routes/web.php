@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AfdelingController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -9,6 +10,9 @@ use App\Http\Controllers\Admin\PekerjaController;
 use App\Http\Controllers\Admin\PemanenanController;
 use App\Http\Controllers\Admin\PemeliharaanController;
 use App\Http\Controllers\Admin\PemupukanController;
+use App\Http\Controllers\Admin\PenggunaHakAksesController;
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\SupirController;
 use App\Http\Controllers\AjaxLoadController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Manajer\DashboardController as ManajerDashboardController;
@@ -40,11 +44,11 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'role:1'])->name('admin.')->prefix('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('/profile', ProfileController::class);
     Route::resource('/hasil-panen', HasilPanenController::class);
-    Route::resource('/pemupukan', PemupukanController::class);
-    Route::resource('/supir', PekerjaController::class);
-    Route::resource('/afdeling', PekerjaController::class);
-    Route::get('/pengguna', [DashboardController::class, 'index'])->name('pengguna');
+    Route::resource('/afdeling', AfdelingController::class);
+    Route::resource('/supir', SupirController::class);
+    Route::resource('/pengguna', PenggunaHakAksesController::class);
 });
 
 // Group untuk manajer tanpa Route::namespace()

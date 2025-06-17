@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('no_hp');
+            $table->string('blok');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
         });

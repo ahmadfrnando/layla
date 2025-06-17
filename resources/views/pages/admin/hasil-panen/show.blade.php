@@ -58,7 +58,6 @@
     let actionUrl = "{{ route('admin.hasil-panen.update', $pengangkutan->id) }}";
     let successMessage = 'Data berhasil disimpan!';
     let redirectUrl = "{{ route('admin.hasil-panen.index') }}";
-
     submitFormAjax(formSelector, actionUrl, successMessage, redirectUrl);
   });
 </script>

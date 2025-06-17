@@ -23,7 +23,46 @@ Breadcrumbs::for('admin.hasil-panen.show', function (BreadcrumbTrail $trail) {
     $trail->push('Tambah', route('admin.hasil-panen.show', 'id'));
 });
 
-Breadcrumbs::for('admin.pemupukan.index', function (BreadcrumbTrail $trail) {
+// afdeling
+Breadcrumbs::for('admin.afdeling.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
-    $trail->push('Pemupukan', route('admin.pemupukan.index'));
+    $trail->push('Afdeling', route('admin.afdeling.index'));
+});
+Breadcrumbs::for('admin.afdeling.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.afdeling.index');
+    $trail->push('Tambah Afdeling', route('admin.afdeling.create'));
+});
+Breadcrumbs::for('admin.afdeling.edit', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.afdeling.index');
+    $trail->push('Ubah', route('admin.afdeling.edit', 'id'));
+});
+
+// supir
+Breadcrumbs::for('admin.supir.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('supir', route('admin.supir.index'));
+});
+Breadcrumbs::for('admin.supir.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.supir.index');
+    $trail->push('Tambah Data Supir', route('admin.supir.create'));
+});
+Breadcrumbs::for('admin.supir.edit', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.supir.index');
+    $trail->push('Ubah', route('admin.supir.edit', 'id'));
+});
+
+// profile
+Breadcrumbs::for('admin.profile.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Profile', route('admin.profile.index'));
+});
+
+// pengguna
+Breadcrumbs::for('admin.pengguna.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Pengguna', route('admin.pengguna.index'));
+});
+Breadcrumbs::for('admin.pengguna.edit', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.pengguna.index');
+    $trail->push('Ubah Kata Sandi', route('admin.pengguna.edit', 'id'));
 });

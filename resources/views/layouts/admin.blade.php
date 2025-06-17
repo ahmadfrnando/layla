@@ -44,7 +44,6 @@
       background-color: #344767 !important;
     }
   </style>
-  <script src="{{ asset('js/scripts.js') }}"></script>
   @routes
 </head>
 

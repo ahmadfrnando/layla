@@ -25,11 +25,11 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('admin.pemupukan.*') ? 'active' : '' }}" href="{{ route('admin.pemupukan.index') }}">
+                <a class="nav-link {{ request()->routeIs('admin.afdeling.*') ? 'active' : '' }}" href="{{ route('admin.afdeling.index') }}">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="fas fa-seedling text-dark text-sm opacity-10"></i>
+                        <i class="fas fa-user-friends text-dark text-sm opacity-10"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Pemupukan</span>
+                    <span class="nav-link-text ms-1">Afdeling</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -41,15 +41,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('admin.afdeling.*') ? 'active' : '' }}" href="{{ route('admin.afdeling.index') }}">
-                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="fas fa-user-friends text-dark text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Afdeling</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('admin.pengguna') ? 'active' : '' }}" href="{{ route('admin.pengguna') }}">
+                <a class="nav-link {{ request()->routeIs('admin.pengguna.*') ? 'active' : '' }}" href="{{ route('admin.pengguna.index') }}">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="fas fa-users-cog text-dark text-sm opacity-10"></i>
                     </div>
