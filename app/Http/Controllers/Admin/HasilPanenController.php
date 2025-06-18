@@ -102,6 +102,7 @@ class HasilPanenController extends Controller
 
         try {
             $pengangkutan = PengangkutanHasilPanen::findOrFail($id);
+            $pengangkutan->is_selesai = 1;
             $pengangkutan->update($validatedData);
 
             return response()->json([

@@ -5,12 +5,11 @@
             <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                 <ul class="navbar-nav justify-content-end">
                     <li class="nav-item d-flex align-items-center ms-2">
-                        <a href="{{ route('admin.profile.index') }}">
+                        <a href="{{ route('afdeling.profile.index') }}">
                             <button class="nav-link text-white font-weight-bold px-0">
                                 <i class="fa fa-user me-sm-1"></i>
                                 <span class="d-sm-inline d-none">Profil</span>
                                 <span class="d-sm-inline d-none">({{ Auth::user()->role->role }})</span>
-
                             </button>
                         </a>
                     </li>

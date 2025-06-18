@@ -37,7 +37,12 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="blok" class="form-control-label">Blok</label>
-                <input class="form-control @error('blok') is-invalid @enderror" name="blok" value="{{ old('blok') }}" type="text" required>
+                <select class="form-control @error('blok') is-invalid @enderror" name="blok" required>
+                  <option value="">Pilih Blok</option>
+                  @foreach($blok as $b)
+                  <option value="{{ $b->blok }}">{{ $b->blok }}</option>
+                  @endforeach
+                </select>
                 @error('blok')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror

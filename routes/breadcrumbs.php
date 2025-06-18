@@ -66,3 +66,56 @@ Breadcrumbs::for('admin.pengguna.edit', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.pengguna.index');
     $trail->push('Ubah Kata Sandi', route('admin.pengguna.edit', 'id'));
 });
+
+// afdeling-dashboard
+Breadcrumbs::for('afdeling.dashboard', function (BreadcrumbTrail $trail) {
+    $trail->push('Pages', route('afdeling.dashboard'));
+});
+
+// afdeling-profile
+Breadcrumbs::for('afdeling.profile.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('afdeling.dashboard');
+    $trail->push('Profile', route('afdeling.profile.index'));
+});
+
+// afdeling-hasil panen
+Breadcrumbs::for('afdeling.hasil-panen.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('afdeling.dashboard');
+    $trail->push('Pemanenan', route('afdeling.hasil-panen.index'));
+});
+
+// afdeling-tambah muatan
+Breadcrumbs::for('afdeling.tambah-muatan.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('afdeling.dashboard');
+    $trail->push('Data Muatan', route('afdeling.tambah-muatan.index'));
+});
+
+Breadcrumbs::for('afdeling.tambah-muatan.edit', function (BreadcrumbTrail $trail) {
+    $trail->parent('afdeling.tambah-muatan.index');
+    $trail->push('Ubah Muatan', route('afdeling.tambah-muatan.edit', 'id'));
+});
+Breadcrumbs::for('afdeling.tambah-muatan.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('afdeling.tambah-muatan.index');
+    $trail->push('Tambah Muatan Baru', route('afdeling.tambah-muatan.create'));
+});
+
+// afdeling-supir
+Breadcrumbs::for('afdeling.supir.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('afdeling.dashboard');
+    $trail->push('Data Supir', route('afdeling.supir.index'));
+});
+
+// afdeling-jadwal-operasional
+Breadcrumbs::for('afdeling.jadwal-operasional.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('afdeling.dashboard');
+    $trail->push('Data Jadwal Operasional', route('afdeling.jadwal-operasional.index'));
+});
+
+Breadcrumbs::for('afdeling.jadwal-operasional.edit', function (BreadcrumbTrail $trail) {
+    $trail->parent('afdeling.jadwal-operasional.index');
+    $trail->push('Ubah Jadwal', route('afdeling.jadwal-operasional.edit', 'id'));
+});
+Breadcrumbs::for('afdeling.jadwal-operasional.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('afdeling.jadwal-operasional.index');
+    $trail->push('Tambah Jadwal Baru', route('afdeling.jadwal-operasional.create'));
+});

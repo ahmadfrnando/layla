@@ -12,7 +12,7 @@ class PenggunaHakAksesController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = User::where('role_id', '!=', 1);
+            $data = User::whereNotIn('role_id', [1,4]);
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {

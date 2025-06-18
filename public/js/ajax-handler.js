@@ -93,3 +93,40 @@ function initializeDataTable(tableSelector, ajaxRoute, columnsConfig) {
 
   return table;
 }
+
+function updateStatusAjax(url, table, status) {
+    Swal.fire({
+        title: 'Apakah anda yakin?',
+        text: "Status data akan diubah menjadi "+status+"!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Saya Yakin!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+            $.ajax({
+                url: url,
+                method: 'POST',
+                success: function(response) {
+                    Swal.fire('Berhasil', response.message, 'success');
+                    table.ajax.reload();
+                },
+                error: function(xhr) {
+                    Swal.fire('Gagal', xhr.responseJSON?.message || 'Terjadi kesalahan.', 'error');
+                }
+            }).always(function() {
+                $.ajaxSetup({
+                    headers: {}
+                });
+            });
+        }
+    }).catch(function(e) {
+        e.preventDefault();
+    });
+}

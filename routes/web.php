@@ -1,22 +1,23 @@
 <?php
 
 use App\Http\Controllers\Admin\AfdelingController;
-use App\Http\Controllers\UsersController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HasilPanenController;
-use App\Http\Controllers\Admin\PekerjaController;
-use App\Http\Controllers\Admin\PemanenanController;
-use App\Http\Controllers\Admin\PemeliharaanController;
-use App\Http\Controllers\Admin\PemupukanController;
 use App\Http\Controllers\Admin\PenggunaHakAksesController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SupirController;
 use App\Http\Controllers\AjaxLoadController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\Manajer\DashboardController as ManajerDashboardController;
+use App\Http\Controllers\Afdeling\DashboardController as AfdelingDashboardController;
+use App\Http\Controllers\Afdeling\ProfileController as AfdelingProfileController;
+use App\Http\Controllers\Afdeling\SupirController as AfdelingSupirController;
+use App\Http\Controllers\Afdeling\HasilPanenController as AfdelingHasilPanenController;
+use App\Http\Controllers\Afdeling\TambahMuatanController as AfdelingTambahMuatanController;
+use App\Http\Controllers\Afdeling\JadwalOperasionalController as AfdelingJadwalOperasionalController;
+use App\Models\Afdeling;
 use App\Models\Pemeliharaan;
+use App\Models\Pengangkutan;
 use App\Models\PengangkutanHasilPanen;
 
 /*
@@ -51,9 +52,15 @@ Route::middleware(['auth', 'role:1'])->name('admin.')->prefix('admin')->group(fu
     Route::resource('/pengguna', PenggunaHakAksesController::class);
 });
 
-// Group untuk manajer tanpa Route::namespace()
-Route::middleware(['auth', 'role:2'])->name('manajer.')->prefix('manajer')->group(function () {
-    Route::get('/dashboard', [ManajerDashboardController::class, 'index'])->name('dashboard');
+// Group untuk afdeling tanpa Route::namespace()
+Route::middleware(['auth', 'role:2'])->name('afdeling.')->prefix('afdeling')->group(function () {
+    Route::get('/dashboard', [AfdelingDashboardController::class, 'index'])->name('dashboard');
+    Route::resource('/profile', AfdelingProfileController::class);
+    Route::resource('/supir', AfdelingSupirController::class);
+    Route::resource('/hasil-panen', AfdelingHasilPanenController::class);
+    Route::resource('/tambah-muatan', AfdelingTambahMuatanController::class);
+    Route::resource('/jadwal-operasional', AfdelingJadwalOperasionalController::class);
+    Route::post('/jadwal-operasional/status/{id}/{status}', [AfdelingJadwalOperasionalController::class, 'updateStatus'])->name('jadwal-operasional.status');
     //
 });
 
@@ -66,13 +73,12 @@ Route::get('/test-dashboard', function () {
     return view('template.dashboard');
 });
 Route::get('/get-data', function () {
-    $pengangkutan = \App\Models\Pengangkutan::whereHas('pengangkutanHasilPanen', function ($query) {
-        $query->where(function ($query) {
-            $query->whereNull('muatan_pabrik')
-                ->orWhereNull('tandan_pabrik');
-        });
-    })->get()->toArray();
-    return response()->json($pengangkutan);
+    $data = PengangkutanHasilPanen::whereHas('pengangkutan', function ($query) {
+        $query->where('user_id', auth()->user()->id);
+    })->get();
+    return response()->json($data);
 })->name('get-data');
 
 Route::get('/get-kode-pengangkutan', [AjaxLoadController::class, 'getKodePengangkutan'])->name('get-kode-pengangkutan');
+Route::get('/search-kode-pengangkutan', [AjaxLoadController::class, 'getKodePengangkutan'])->name('search.kode-pengangkutan');
+Route::get('/search-supir', [AjaxLoadController::class, 'getSupir'])->name('search.supir');

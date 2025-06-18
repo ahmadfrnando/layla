@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AfdelingRequest;
 use App\Models\Afdeling;
+use App\Models\RefBlok;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -30,8 +31,9 @@ class AfdelingController extends Controller
     }
 
     public function create()
-    {
-        return view('pages.admin.afdeling.create');
+    {   
+        $blok = RefBlok::all();
+        return view('pages.admin.afdeling.create', compact('blok'));
     }
 
     public function store(AfdelingRequest $request)

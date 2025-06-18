@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Manajer;
+namespace App\Http\Controllers\Afdeling;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -9,6 +9,6 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('pages.manajer.dashboard');
+        return view('pages.afdeling.dashboard');
     }
 }
