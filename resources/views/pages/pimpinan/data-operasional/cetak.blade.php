@@ -41,7 +41,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <p>{{ $data['tanggal_mulai'] }} - {{ $data['tanggal_selesai'] }}</p>
+                <p>{{ $tanggal_mulai }} - {{ $tanggal_selesai }}</p>
             </div>
         </div>
         <div class="row">
@@ -65,7 +65,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data['models'] as $item)
+                            @foreach ($models as $item)
                             <tr>
                                 <td class="text-center">{{ $loop->iteration }}</td>
                                 <td>{{ $item->tanggal }}</td>

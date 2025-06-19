@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pimpinan;
 
 use App\Http\Controllers\Controller;
+use App\Models\PengangkutanHasilPanen;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -11,8 +12,9 @@ class DashboardController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        return view('pages.pimpinan.dashboard');
+    {   
+        $jumlahMuatan = PengangkutanHasilPanen::whereMonth('tanggal', date('m'));
+        return view('pages.pimpinan.dashboard', compact('jumlahMuatan'));
     }
 
     /**

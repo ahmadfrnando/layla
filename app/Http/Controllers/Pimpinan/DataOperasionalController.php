@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Pimpinan;
 
 use App\Http\Controllers\Controller;
 use App\Models\PengangkutanHasilPanen;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -64,7 +65,8 @@ class DataOperasionalController extends Controller
                 'tanggal_selesai' => $validatedData['tanggal_selesai'],
             ];
 
-            return view('pages.pimpinan.data-operasional.cetak', compact('data'));
+            $pdf = Pdf::loadView('pages.pimpinan.data-operasional.cetak', $data)->setPaper('a4', 'landscape');
+            return $pdf->download('laporan'.  $validatedData['tanggal_mulai'].'-'.$validatedData['tanggal_selesai'].'.pdf');
         }
 
         return view('pages.pimpinan.data-operasional.form-cetak');
