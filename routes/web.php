@@ -16,6 +16,10 @@ use App\Http\Controllers\Afdeling\HasilPanenController as AfdelingHasilPanenCont
 use App\Http\Controllers\Afdeling\TambahMuatanController as AfdelingTambahMuatanController;
 use App\Http\Controllers\Afdeling\JadwalOperasionalController as AfdelingJadwalOperasionalController;
 use App\Models\Afdeling;
+use App\Http\Controllers\Pimpinan\DashboardController as PimpinanDashboardController;
+use App\Http\Controllers\Pimpinan\DataOperasionalController as PimpinanDataOperasionalController;
+use App\Http\Controllers\Pimpinan\ProfileController as PimpinanProfileController;
+
 use App\Models\Pemeliharaan;
 use App\Models\Pengangkutan;
 use App\Models\PengangkutanHasilPanen;
@@ -64,9 +68,14 @@ Route::middleware(['auth', 'role:2'])->name('afdeling.')->prefix('afdeling')->gr
     //
 });
 
-// Group untuk pekerja tanpa Route::namespace()
-Route::middleware(['auth', 'role:3'])->name('pekerja.')->group(function () {
-    //
+// Group untuk pimpinan tanpa Route::namespace()
+Route::middleware(['auth', 'role:3'])->name('pimpinan.')->prefix('pimpinan')->group(function () {
+    Route::get('/dashboard', [PimpinanDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/data-operasional', [PimpinanDataOperasionalController::class, 'index'])->name('data-operasional.index');
+    Route::get('/data-operasional/cetak', [PimpinanDataOperasionalController::class, 'cetak'])->name('data-operasional.form-cetak');
+    Route::post('/data-operasional/cetak', [PimpinanDataOperasionalController::class, 'cetak'])->name('data-operasional.cetak');
+    Route::get('/data-operasional/pdf', [PimpinanDataOperasionalController::class, 'pdf'])->name('data-operasional.pdf');
+    Route::resource('/profile', PimpinanProfileController::class);
 });
 
 Route::get('/test-dashboard', function () {
@@ -82,3 +91,8 @@ Route::get('/get-data', function () {
 Route::get('/get-kode-pengangkutan', [AjaxLoadController::class, 'getKodePengangkutan'])->name('get-kode-pengangkutan');
 Route::get('/search-kode-pengangkutan', [AjaxLoadController::class, 'getKodePengangkutan'])->name('search.kode-pengangkutan');
 Route::get('/search-supir', [AjaxLoadController::class, 'getSupir'])->name('search.supir');
+Route::get('/test-cetak', function(){
+    return view('pages.pimpinan.data-operasional.cetak', [
+        'data' => App\models\PengangkutanHasilPanen::all(),
+    ]);
+});

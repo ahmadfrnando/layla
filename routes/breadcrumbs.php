@@ -119,3 +119,17 @@ Breadcrumbs::for('afdeling.jadwal-operasional.create', function (BreadcrumbTrail
     $trail->parent('afdeling.jadwal-operasional.index');
     $trail->push('Tambah Jadwal Baru', route('afdeling.jadwal-operasional.create'));
 });
+
+// pimpinan - dashboard
+Breadcrumbs::for('pimpinan.dashboard', function (BreadcrumbTrail $trail) {
+    $trail->push('Pages', route('pimpinan.dashboard'));
+});
+
+Breadcrumbs::for('pimpinan.data-operasional.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('pimpinan.dashboard');
+    $trail->push('Data Operasional', route('pimpinan.data-operasional.index'));
+});
+Breadcrumbs::for('pimpinan.data-operasional.form-cetak', function (BreadcrumbTrail $trail) {
+    $trail->parent('pimpinan.data-operasional.index');
+    $trail->push('Cetak', route('pimpinan.data-operasional.form-cetak'));
+});
