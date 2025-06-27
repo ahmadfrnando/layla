@@ -46,7 +46,7 @@ class SupirController extends Controller
             $now = now();
             $user->username = str_replace(' ', '', $data['nama']) . $now->format('His');
             $user->password = bcrypt('password');
-            $user->role_id = 3;
+            $user->role_id = 4;
             $user->save();
 
             $supir->user_id = $user->id;
