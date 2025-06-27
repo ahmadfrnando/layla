@@ -27,7 +27,7 @@ class HasilPanenController extends Controller
                     return $row->pengangkutan->blok ?? '-';
                 })
                 ->addColumn('action', function ($row) {
-                    $btn = ' <a href="' . route('admin.hasil-panen.edit', $row->id) . '" class="btn btn-sm btn-warning">Edit</a>';
+                    $btn = ' <a href="' . route('admin.hasil-panen.show', $row->id) . '" class="btn btn-sm btn-warning">Edit</a>';
                     $btn .= ' <form action="' . route('admin.hasil-panen.destroy', $row->id) . '" method="POST" style="display:inline-block;">';
                     $btn .= csrf_field();
                     $btn .= method_field('DELETE');
