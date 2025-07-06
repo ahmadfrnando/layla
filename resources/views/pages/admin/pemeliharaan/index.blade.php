@@ -8,9 +8,6 @@
                     <h6>Data Pemeliharaan Sawit</h6>
                     <p class="text-sm">Berikut adalah data pemeliharaan yang telah tercatat.</p>
                 </div>
-                <div>
-                    <a href="{{ route('admin.pemeliharaan.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah Data</a>
-                </div>
             </div>
             <div class="card-body p-4">
                 <div class="table-responsive">
@@ -74,6 +71,12 @@
             }
         ];
         var table = initializeDataTable(selector, route, columns);
+        $(document).on('click', '#delete', function() {
+            var id = $(this).data('id');
+            var route = "{{ route('admin.pemeliharaan.destroy', ':id') }}";
+            route = route.replace(':id', id);
+            deleteDataAjax(route, table);
+        });
     })
 </script>
 @endpush

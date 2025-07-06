@@ -8,9 +8,6 @@
                     <h6>Data Pemupukan</h6>
                     <p class="text-sm">Berikut adalah data pemupukan yang telah tercatat.</p>
                 </div>
-                <div>
-                    <a href="{{ route('admin.pemupukan.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah Data Pemupukan</a>
-                </div>
             </div>
             <div class="card-body p-4">
                 <div class="table-responsive">
@@ -84,9 +81,9 @@
         ];
         var table = initializeDataTable(selector, route, columns);
 
-         $(document).on('click', '#delete', function() {
+        $(document).on('click', '#delete', function() {
             var id = $(this).data('id');
-            var route = "{{ route('admin.hasil-panen.destroy', ':id') }}";
+            var route = "{{ route('admin.pemupukan.destroy', ':id') }}";
             route = route.replace(':id', id);
             deleteDataAjax(route, table);
         });
