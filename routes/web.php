@@ -89,7 +89,6 @@ Route::middleware(['auth', 'role:3'])->name('manajer.')->prefix('manajer')->grou
     Route::get('/hasil-panen', ManajerHasilPanenController::class)->name('hasil-panen.index');
     Route::get('/pemupukan', ManajerPemupukanController::class)->name('pemupukan.index');
     Route::get('/pemeliharaan', ManajerPemeliharaanController::class)->name('pemeliharaan.index');
-    Route::resource('/jadwal-tugas', ManajerJadwalTugasController::class);
     Route::get('/laporan', ManajerLaporanController::class)->name('laporan.index');
     Route::post('/laporan', ManajerLaporanController::class)->name('laporan.cetak');
     Route::resource('/profile', ManajerProfileController::class);
