@@ -22,6 +22,7 @@ class PemupukanController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $btn = ' <a href="' . route('admin.pemupukan.edit', $row->id) . '" class="btn btn-sm btn-warning">Edit</a>';
+                    $btn .= '<button type="button" data-id="' . $row->id . '" id="delete" class="ms-2 btn btn-sm btn-danger">Hapus</button>';
                     return $btn;
                 })
                 ->addColumn('karyawan', function ($row) {

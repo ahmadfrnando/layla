@@ -83,6 +83,13 @@
             }
         ];
         var table = initializeDataTable(selector, route, columns);
+
+         $(document).on('click', '#delete', function() {
+            var id = $(this).data('id');
+            var route = "{{ route('admin.hasil-panen.destroy', ':id') }}";
+            route = route.replace(':id', id);
+            deleteDataAjax(route, table);
+        });
     })
 </script>
 @endpush
