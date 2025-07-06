@@ -14,16 +14,18 @@ class PemupukanFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    protected $model = \App\Models\Pemupukan::class;
     public function definition(): array
+
     {
         return [
             'tanggal' => $this->faker->dateTimeBetween('-1 year', 'now'),
-            'jumlah' => $this->faker->numberBetween(1, 100),
+            'jumlah_kg' => $this->faker->numberBetween(100, 800),
             'jenis_pupuk' => $this->faker->randomElement(['Urea', 'NPK', 'Organik', 'KCL']),
-            'pekerja_id' => \App\Models\Pekerja::factory()->create()->id,
+            'karyawan_id' => \App\Models\Karyawan::factory()->create()->id,
             'created_at' => now(),
             'updated_at' => now(),
-            'keterangan' => $this->faker->sentence(6, true),
+            'catatan' => $this->faker->sentence(6, true),
         ];
     }
 }

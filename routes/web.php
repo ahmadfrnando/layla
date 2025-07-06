@@ -4,6 +4,13 @@ use App\Http\Controllers\Admin\AfdelingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HasilPanenController;
+use App\Http\Controllers\Admin\JadwalTugasController;
+use App\Http\Controllers\Admin\LaporanController;
+use App\Http\Controllers\Admin\ManajemenKaryawanController;
+use App\Http\Controllers\Admin\PemeliharaanController;
+use App\Http\Controllers\Admin\PemupukanController;
+use App\Http\Controllers\Admin\PengaturanController;
+use App\Http\Controllers\Admin\PengaturanPenggunaController;
 use App\Http\Controllers\Admin\PenggunaHakAksesController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SupirController;
@@ -23,6 +30,7 @@ use App\Http\Controllers\Pimpinan\ProfileController as PimpinanProfileController
 use App\Models\Pemeliharaan;
 use App\Models\Pengangkutan;
 use App\Models\PengangkutanHasilPanen;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,11 +57,16 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'role:1'])->name('admin.')->prefix('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('/profile', ProfileController::class);
+    Route::resource('/manajemen-karyawan', ManajemenKaryawanController::class);
     Route::resource('/hasil-panen', HasilPanenController::class);
-    Route::resource('/afdeling', AfdelingController::class);
-    Route::resource('/supir', SupirController::class);
-    Route::resource('/pengguna', PenggunaHakAksesController::class);
+    Route::resource('/pemupukan', PemupukanController::class);
+    Route::resource('/pemeliharaan', PemeliharaanController::class);
+    Route::resource('/jadwal-tugas', JadwalTugasController::class);
+    Route::post('/jadwal-tugas/status/{id}/{status}', [JadwalTugasController::class, 'updateStatus'])->name('jadwal-tugas.status');
+    Route::get('/laporan', LaporanController::class)->name('laporan.index');
+    Route::post('/laporan', LaporanController::class)->name('laporan.cetak');
+    Route::resource('/pengaturan-pengguna', PengaturanPenggunaController::class);
+    Route::resource('/profile', ProfileController::class);
 });
 
 // Group untuk afdeling tanpa Route::namespace()
@@ -82,17 +95,18 @@ Route::get('/test-dashboard', function () {
     return view('template.dashboard');
 });
 Route::get('/get-data', function () {
-    $data = PengangkutanHasilPanen::whereHas('pengangkutan', function ($query) {
-        $query->where('user_id', auth()->user()->id);
-    })->get();
+    $data = User::with('karyawan')
+        ->select('users.*')
+        ->where('role_id', 2)->get();
     return response()->json($data);
 })->name('get-data');
 
 Route::get('/get-kode-pengangkutan', [AjaxLoadController::class, 'getKodePengangkutan'])->name('get-kode-pengangkutan');
 Route::get('/search-kode-pengangkutan', [AjaxLoadController::class, 'getKodePengangkutan'])->name('search.kode-pengangkutan');
-Route::get('/search-supir', [AjaxLoadController::class, 'getSupir'])->name('search.supir');
-Route::get('/test-cetak', function(){
+Route::get('/search-karyawan', [AjaxLoadController::class, 'getKaryawan'])->name('search.karyawan');
+Route::get('/search-karyawan-pengguna', [AjaxLoadController::class, 'getKaryawanPengguna'])->name('search.karyawan-pengguna');
+Route::get('/test-cetak', function () {
     return view('pages.pimpinan.data-operasional.cetak', [
-        'data' => App\models\PengangkutanHasilPanen::all(),
+        'data' => App\models\User::all(),
     ]);
 });

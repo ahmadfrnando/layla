@@ -1,4 +1,4 @@
-<div class="card-header pb-0 d-flex justify-content-between">
+∑<div class="card-header pb-0 d-flex justify-content-between">
     <div>
         <h6>Data Hasil Panen</h6>
         <p class="text-sm">Berikut adalah data hasil panen yang telah tercatat.</p>

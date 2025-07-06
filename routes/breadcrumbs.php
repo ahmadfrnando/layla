@@ -8,19 +8,87 @@ use Diglactic\Breadcrumbs\Breadcrumbs;
 //  with `$trail`. This is nice for IDE type checking and completion.
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
-// Home
+// admin
 Breadcrumbs::for('admin.dashboard', function (BreadcrumbTrail $trail) {
     $trail->push('Pages', route('admin.dashboard'));
 });
 
-// Home > Blog
+Breadcrumbs::for('admin.manajemen-karyawan.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Karyawan', route('admin.manajemen-karyawan.index'));
+});
+Breadcrumbs::for('admin.manajemen-karyawan.edit', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.manajemen-karyawan.index');
+    $trail->push('Ubah Karyawan', route('admin.manajemen-karyawan.edit', 'id'));
+});
+Breadcrumbs::for('admin.manajemen-karyawan.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.manajemen-karyawan.index');
+    $trail->push('Tambah Karyawan', route('admin.manajemen-karyawan.create'));
+});
 Breadcrumbs::for('admin.hasil-panen.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
-    $trail->push('Pemanenan', route('admin.hasil-panen.index'));
+    $trail->push('Hasil Panen', route('admin.hasil-panen.index'));
 });
-Breadcrumbs::for('admin.hasil-panen.show', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('admin.hasil-panen.create', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.hasil-panen.index');
-    $trail->push('Tambah', route('admin.hasil-panen.show', 'id'));
+    $trail->push('Tambah', route('admin.hasil-panen.create'));
+});
+Breadcrumbs::for('admin.hasil-panen.edit', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.hasil-panen.index');
+    $trail->push('Ubah', route('admin.hasil-panen.edit', 'id'));
+});
+
+Breadcrumbs::for('admin.pemupukan.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Hasil Panen', route('admin.pemupukan.index'));
+});
+Breadcrumbs::for('admin.pemupukan.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.pemupukan.index');
+    $trail->push('Tambah', route('admin.pemupukan.create'));
+});
+Breadcrumbs::for('admin.pemupukan.edit', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.pemupukan.index');
+    $trail->push('Ubah', route('admin.pemupukan.edit', 'id'));
+});
+
+Breadcrumbs::for('admin.pemeliharaan.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Pemeliharaan', route('admin.pemeliharaan.index'));
+});
+Breadcrumbs::for('admin.pemeliharaan.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.pemeliharaan.index');
+    $trail->push('Tambah', route('admin.pemeliharaan.create'));
+});
+Breadcrumbs::for('admin.pemeliharaan.edit', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.pemeliharaan.index');
+    $trail->push('Ubah', route('admin.pemeliharaan.edit', 'id'));
+});
+
+Breadcrumbs::for('admin.jadwal-tugas.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Jadwal Tugas', route('admin.jadwal-tugas.index'));
+});
+Breadcrumbs::for('admin.jadwal-tugas.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.jadwal-tugas.index');
+    $trail->push('Tambah', route('admin.jadwal-tugas.create'));
+});
+Breadcrumbs::for('admin.jadwal-tugas.edit', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.jadwal-tugas.index');
+    $trail->push('Ubah', route('admin.jadwal-tugas.edit', 'id'));
+});
+
+Breadcrumbs::for('admin.laporan.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Semua Laporan', route('admin.laporan.index'));
+});
+Breadcrumbs::for('admin.pengaturan-pengguna.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Semua Pengguna', route('admin.pengaturan-pengguna.index'));
+});
+
+Breadcrumbs::for('admin.pengaturan-pengguna.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.pengaturan-pengguna.index');
+    $trail->push('Tambah Pengguna', route('admin.pengaturan-pengguna.create'));
 });
 
 // afdeling

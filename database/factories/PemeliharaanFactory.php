@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Karyawan;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -14,13 +15,15 @@ class PemeliharaanFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    protected $model = \App\Models\Pemeliharaan::class;
+
     public function definition(): array
     {
         return [
-            'tanggal_pemeliharaan' => $this->faker->dateTimeBetween('-1 year', 'now'),
-            'jenis_pemeliharaan' => $this->faker->randomElement(['penyiraman', 'pemangkasan', 'pembersihan']),
-            'pekerja_id' => \App\Models\Pekerja::factory(),
-            'keterangan' => $this->faker->sentence(),
+            'tanggal' => $this->faker->dateTimeBetween('first day of this month', date('Y-m-d')),
+            'jenis_tindakan' => $this->faker->randomElement(['penyiraman', 'pemangkasan', 'pembersihan']),
+            'karyawan_id' => Karyawan::pluck('id')->random(),
+            'deskripsi' => $this->faker->sentence(15, true),
             'created_at' => now(),
             'updated_at' => now(),
         ];

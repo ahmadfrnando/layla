@@ -22,10 +22,10 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
+            // 'name' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users,username,' . $this->user()->id,
             'password' => 'required|string|min:8|confirmed',
-            'role_id' => 'required|exists:role,id',
+            // 'role_id' => 'required|exists:role,id',
         ];
     }
 
@@ -35,7 +35,6 @@ class UserRequest extends FormRequest
             'name.required' => 'Nama harus diisi.',
             'username.required' => 'Username harus diisi.',
             'password.required' => 'Password harus diisi.',
-            'role_id.required' => 'Posisi harus diisi.',
         ];
     }
 }

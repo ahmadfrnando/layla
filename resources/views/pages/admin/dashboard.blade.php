@@ -8,9 +8,9 @@
         <div class="row">
           <div class="col-8">
             <div class="numbers">
-              <p class="text-sm mb-0 text-uppercase font-weight-bold">Jumlah Muatan Pabrik</p>
+              <p class="text-sm mb-0 text-uppercase font-weight-bold">Jumlah Hasil Panen</p>
               <h5 class="font-weight-bolder">
-                {{ $jumlahMuatanPabrik }}
+                {{ $jumlahHasilPanen . ' Kg' }}
               </h5>
             </div>
           </div>
@@ -29,9 +29,9 @@
         <div class="row">
           <div class="col-8">
             <div class="numbers">
-              <p class="text-sm mb-0 text-uppercase font-weight-bold">Jumlah Muatan Panen</p>
+              <p class="text-sm mb-0 text-uppercase font-weight-bold">Jumlah Pemupukan</p>
               <h5 class="font-weight-bolder">
-                {{ $jumlahMuatanPanen }}
+                {{ $jumlahPemupukan . ' Kg' }}
               </h5>
             </div>
           </div>
@@ -50,9 +50,9 @@
         <div class="row">
           <div class="col-8">
             <div class="numbers">
-              <p class="text-sm mb-0 text-uppercase font-weight-bold">Jumlah Afdeling</p>
+              <p class="text-sm mb-0 text-uppercase font-weight-bold">Jumlah Pemeliharaan</p>
               <h5 class="font-weight-bolder">
-                {{ $jumlahAfdeling }}
+                {{ $jumlahPemeliharaan . ' Data' }}
               </h5>
             </div>
           </div>
@@ -71,9 +71,9 @@
         <div class="row">
           <div class="col-8">
             <div class="numbers">
-              <p class="text-sm mb-0 text-uppercase font-weight-bold">Jumlah Supir</p>
+              <p class="text-sm mb-0 text-uppercase font-weight-bold">Jumlah Karyawan</p>
               <h5 class="font-weight-bolder">
-                {{ $jumlahSupir }}
+                {{ $jumlahKaryawan . ' Orang' }}
               </h5>
             </div>
           </div>

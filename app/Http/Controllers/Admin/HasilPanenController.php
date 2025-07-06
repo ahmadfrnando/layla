@@ -2,113 +2,68 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Charts\GrafikHasilPanenBulanan;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PengangkutanHasilPanenRequest;
-use App\Models\PengangkutanHasilPanen;
+use App\Http\Requests\HasilPanenRequest;
+use App\Models\HasilPanen;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Yajra\DataTables\Facades\Datatables;
+use Yajra\DataTables\Facades\DataTables;
 
 class HasilPanenController extends Controller
 {
-    public function index(Request $request)
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request, GrafikHasilPanenBulanan $chart)
     {
         if ($request->ajax()) {
-            $data = PengangkutanHasilPanen::with('afdeling');
-            return Datatables::of($data)
+            $data = HasilPanen::select('*')->orderBy('created_at', 'desc');
+            return DataTables::of($data)
                 ->addIndexColumn()
-                ->addColumn('afdeling', function ($row) {
-                    return $row->afdeling->name ?? '-';
-                })
-                ->addColumn('kode_pengangkutan', function ($row) {
-                    return $row->pengangkutan->kode_pengangkutan ?? '-';
-                })
-                ->addColumn('blok', function ($row) {
-                    return $row->pengangkutan->blok ?? '-';
-                })
                 ->addColumn('action', function ($row) {
-                    $btn = ' <a href="' . route('admin.hasil-panen.show', $row->id) . '" class="btn btn-sm btn-warning">Edit</a>';
-                    $btn .= ' <form action="' . route('admin.hasil-panen.destroy', $row->id) . '" method="POST" style="display:inline-block;">';
-                    $btn .= csrf_field();
-                    $btn .= method_field('DELETE');
-                    $btn .= '<button type="submit" class="btn btn-sm btn-danger">Hapus</button>';
-                    $btn .= '</form>';
+                    $btn = ' <a href="' . route('admin.hasil-panen.edit', $row->id) . '" class="btn btn-sm btn-warning">Edit</a>';
                     return $btn;
                 })
-                ->rawColumns(['afdeling', 'action', 'kode_pengangkutan', 'blok'])
-                ->filterColumn('afdeling', function ($query, $value) {
-                    $query->whereHas('afdeling', function ($q) use ($value) {
-                        $q->where('name', 'LIKE', '%' . $value . '%');
+                ->addColumn('karyawan', function ($row) {
+                    return $row->karyawan->nama ?? '-';
+                })
+                ->addColumn('catatan', function ($row) {
+                    return '<span style="white-space: normal !important;">' . $row->catatan . '</span>';
+                })
+                ->rawColumns(['action', 'karyawan', 'catatan'])
+                ->filterColumn('karyawan', function ($query, $value) {
+                    $query->whereHas('karyawan', function ($q) use ($value) {
+                        $q->where('nama', 'LIKE', '%' . $value . '%');
                     });
                 })
-                ->filterColumn('kode_pengangkutan', function ($query, $value) {
-                    $query->whereHas('pengangkutan', function ($q) use ($value) {
-                        $q->where('kode_pengangkutan', 'LIKE', '%' . $value . '%');
-                    });
+                ->filterColumn('catatan', function ($query, $value) {
+                    $query->where('catatan', 'LIKE', '%' . $value . '%');
                 })
                 ->make(true);
         }
-        return view('pages.admin.hasil-panen.index');
-    }
-    public function create(Request $request)
-    {
-        if ($request->ajax()) {
-            $data = PengangkutanHasilPanen::with('afdeling')
-                ->whereNull('muatan_pabrik')
-                ->whereNull('tandan_pabrik');
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->addColumn('afdeling', function ($row) {
-                    return $row->afdeling->name ?? '-';
-                })
-                ->addColumn('kode_pengangkutan', function ($row) {
-                    return $row->pengangkutan->kode_pengangkutan ?? '-';
-                })
-                ->addColumn('blok', function ($row) {
-                    return $row->pengangkutan->blok ?? '-';
-                })
-                ->addColumn('action', function ($row) {
-                    $btn = ' <a href="' . route('admin.hasil-panen.show', $row->id) . '" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Masukkan Hasil Panen</a>';
-                    return $btn;
-                })
-                ->rawColumns(['afdeling', 'action', 'kode_pengangkutan', 'blok'])
-                ->filterColumn('afdeling', function ($query, $value) {
-                    $query->whereHas('afdeling', function ($q) use ($value) {
-                        $q->where('name', 'LIKE', '%' . $value . '%');
-                    });
-                })
-                ->filterColumn('kode_pengangkutan', function ($query, $value) {
-                    $query->whereHas('pengangkutan', function ($q) use ($value) {
-                        $q->where('kode_pengangkutan', 'LIKE', '%' . $value . '%');
-                    });
-                })
-                ->make(true);
-        }
-        return view('pages.admin.hasil-panen.index');
+        return view('pages.admin.hasil-panen.index', ['chart' => $chart->build()]);
     }
 
-    public function show($id)
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
     {
-        $pengangkutan = PengangkutanHasilPanen::findOrFail($id);
-        return view('pages.admin.hasil-panen.show', compact('pengangkutan'));
+        return view('pages.admin.hasil-panen.create');
     }
 
-    public function update(Request $request, $id)
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(HasilPanenRequest $request)
     {
-        $validatedData = $request->validate([
-            'tandan_pabrik' => 'required|integer|min:1',
-            'muatan_pabrik' => 'required|numeric|min:0.01'
-        ]);
-
+        $validatedData = $request->validated();
         try {
-            $pengangkutan = PengangkutanHasilPanen::findOrFail($id);
-            $pengangkutan->is_selesai = 1;
-            $pengangkutan->update($validatedData);
-
+            $hasilPanen = HasilPanen::create($validatedData);
             return response()->json([
                 'success' => true,
                 'message' => 'Data berhasil disimpan!',
-                'data' => $pengangkutan
+                'data' => $hasilPanen
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
@@ -116,5 +71,52 @@ class HasilPanenController extends Controller
                 'message' => 'Terjadi kesalahan: ' . $e->getMessage()
             ], 500);
         }
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        $hasilPanen = HasilPanen::findOrFail($id);
+        return view('pages.admin.hasil-panen.edit', compact('hasilPanen'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(HasilPanenRequest $request, string $id)
+    {
+        $validatedData = $request->validated();
+        try {
+            $hasilPanen = HasilPanen::findOrFail($id);
+            $hasilPanen->update($validatedData);
+            return response()->json([
+                'success' => true,
+                'message' => 'Data berhasil disimpan!',
+                'data' => $hasilPanen
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
     }
 }

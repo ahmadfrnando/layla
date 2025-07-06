@@ -35,7 +35,7 @@ class LoginController extends Controller
         }
         return back()->withErrors([
             'username' => 'Username tidak terdaftar atau kata sandi salah.',
-        ]);
+        ])->withInput();
     }
 
     public function logout(Request $request)
