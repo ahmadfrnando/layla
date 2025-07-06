@@ -118,6 +118,18 @@ class PemeliharaanController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $pemeliharaan = Pemeliharaan::findOrFail($id);
+            $pemeliharaan->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'Data berhasil dihapus!'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ], 500);
+        }
     }
 }

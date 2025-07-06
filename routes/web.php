@@ -67,8 +67,6 @@ Route::middleware(['auth', 'role:1'])->name('admin.')->prefix('admin')->group(fu
     Route::resource('/pemeliharaan', PemeliharaanController::class);
     Route::resource('/jadwal-tugas', JadwalTugasController::class);
     Route::post('/jadwal-tugas/status/{id}/{status}', [JadwalTugasController::class, 'updateStatus'])->name('jadwal-tugas.status');
-    Route::get('/laporan', LaporanController::class)->name('laporan.index');
-    Route::post('/laporan', LaporanController::class)->name('laporan.cetak');
     Route::resource('/pengaturan-pengguna', PengaturanPenggunaController::class);
     Route::resource('/profile', ProfileController::class);
 });

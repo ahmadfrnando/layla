@@ -116,8 +116,20 @@ class PemupukanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+   public function destroy(string $id)
     {
-        //
+        try {
+            $pemupukan = Pemupukan::findOrFail($id);
+            $pemupukan->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'Data berhasil dihapus!'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ], 500);
+        }
     }
 }
