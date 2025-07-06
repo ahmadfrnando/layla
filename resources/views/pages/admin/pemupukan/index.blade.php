@@ -2,11 +2,6 @@
 @section('content')
 <div class="row">
     <div class="col-12">
-        <div class="card mb-4">
-            <div class="p-6 m-20 bg-white rounded shadow">
-                {!! $chart->container() !!}
-            </div>
-        </div>
         <div class="card">
             <div class="card-header pb-0 d-flex justify-content-between">
                 <div>
@@ -90,8 +85,5 @@
         var table = initializeDataTable(selector, route, columns);
     })
 </script>
-<script src="{{ $chart->cdn() }}"></script>
-
-{{ $chart->script() }}
 @endpush
 @endsection

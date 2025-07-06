@@ -1,12 +1,7 @@
-@extends('layouts.manajer')
+@extends('layouts.admin')
 @section('content')
 <div class="row">
     <div class="col-12">
-        <div class="card mb-4">
-            <div class="p-6 m-20 bg-white rounded shadow">
-                {!! $chart->container() !!}
-            </div>
-        </div>
         <div class="card">
             <div class="card-header pb-0 d-flex justify-content-between">
                 <div>
@@ -38,7 +33,7 @@
 @push('scripts')
 <script type="text/javascript">
     $(function() {
-        var route = 'manajer.hasil-panen.index';
+        var route = 'admin.hasil-panen.index';
         var selector = ".data-table";
         var columns = [{
                 data: 'DT_RowIndex',
@@ -80,16 +75,13 @@
         ];
         var table = initializeDataTable(selector, route, columns);
 
-         $(document).on('click', '#delete', function() {
+        $(document).on('click', '#delete', function() {
             var id = $(this).data('id');
-            var route = "{{ route('admin.manajemen-karyawan.destroy', ':id') }}";
+            var route = "{{ route('admin.hasil-panen.destroy', ':id') }}";
             route = route.replace(':id', id);
             deleteDataAjax(route, table);
         });
     })
 </script>
-<script src="{{ $chart->cdn() }}"></script>
-
-{{ $chart->script() }}
 @endpush
 @endsection
