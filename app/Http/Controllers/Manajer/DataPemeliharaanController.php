@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Manajer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PemeliharaanRequest;
@@ -8,28 +8,24 @@ use App\Models\Pemeliharaan;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
-class PemeliharaanController extends Controller
+class DataPemeliharaanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function __invoke(Request $request)
     {
         if ($request->ajax()) {
             $data = Pemeliharaan::select('*')->orderBy('created_at', 'desc');
             return DataTables::of($data)
                 ->addIndexColumn()
-                ->addColumn('action', function ($row) {
-                    $btn = ' <a href="' . route('admin.pemeliharaan.edit', $row->id) . '" class="btn btn-sm btn-warning">Edit</a>';
-                    return $btn;
-                })
                 ->addColumn('karyawan', function ($row) {
                     return $row->karyawan->nama ?? '-';
                 })
                 ->addColumn('deskripsi', function ($row) {
                     return '<span style="white-space: normal !important;">' . $row->deskripsi . '</span>';
                 })
-                ->rawColumns(['action', 'karyawan', 'deskripsi'])
+                ->rawColumns(['karyawan', 'deskripsi'])
                 ->filterColumn('karyawan', function ($query, $value) {
                     $query->whereHas('karyawan', function ($q) use ($value) {
                         $q->where('nama', 'LIKE', '%' . $value . '%');
@@ -40,7 +36,7 @@ class PemeliharaanController extends Controller
                 })
                 ->make(true);
         }
-        return view('pages.admin.pemeliharaan.index');
+        return view('pages.manajer.pemeliharaan.index');
     }
 
     /**
@@ -48,7 +44,7 @@ class PemeliharaanController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.pemeliharaan.create');
+        //
     }
 
     /**
@@ -56,20 +52,7 @@ class PemeliharaanController extends Controller
      */
     public function store(PemeliharaanRequest $request)
     {
-        $validatedData = $request->validated();
-        try {
-            $pemeliharaan = Pemeliharaan::create($validatedData);
-            return response()->json([
-                'success' => true,
-                'message' => 'Data berhasil disimpan!',
-                'data' => $pemeliharaan
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
-            ], 500);
-        }
+        //
     }
 
     /**
@@ -85,8 +68,7 @@ class PemeliharaanController extends Controller
      */
     public function edit(string $id)
     {
-        $pemeliharaan = Pemeliharaan::findOrFail($id);
-        return view('pages.admin.pemeliharaan.edit', compact('pemeliharaan'));
+       //
     }
 
     /**
@@ -94,21 +76,7 @@ class PemeliharaanController extends Controller
      */
     public function update(PemeliharaanRequest $request, string $id)
     {
-        $validatedData = $request->validated();
-        try {
-            $pemeliharaan = Pemeliharaan::findOrFail($id);
-            $pemeliharaan->update($validatedData);
-            return response()->json([
-                'success' => true,
-                'message' => 'Data berhasil disimpan!',
-                'data' => $pemeliharaan
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
-            ], 500);
-        }
+        //
     }
 
     /**

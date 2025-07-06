@@ -13,9 +13,9 @@ class LoginController extends Controller
             if (Auth::user()->role_id == 1) {
                 return redirect('admin/dashboard');
             } elseif (Auth::user()->role_id == 2) {
-                return redirect('afdeling/dashboard');
+                return redirect('petugas/dashboard');
             } elseif (Auth::user()->role_id == 3) {
-                return redirect('pimpinan/dashboard');
+                return redirect('manajer/dashboard');
             }
         }
         return view('pages.auth.login');
@@ -28,9 +28,9 @@ class LoginController extends Controller
             if (Auth::user()->role_id == 1) {
                 return redirect()->intended('admin/dashboard');
             } elseif (Auth::user()->role_id == 2) {
-                return redirect()->intended('afdeling/dashboard');
+                return redirect()->intended('petugas/dashboard');
             } elseif (Auth::user()->role_id == 3) {
-                return redirect()->intended('pimpinan/dashboard');
+                return redirect()->intended('manajer/dashboard');
             }
         }
         return back()->withErrors([

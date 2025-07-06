@@ -91,113 +91,144 @@ Breadcrumbs::for('admin.pengaturan-pengguna.create', function (BreadcrumbTrail $
     $trail->push('Tambah Pengguna', route('admin.pengaturan-pengguna.create'));
 });
 
-// afdeling
-Breadcrumbs::for('admin.afdeling.index', function (BreadcrumbTrail $trail) {
-    $trail->parent('admin.dashboard');
-    $trail->push('Afdeling', route('admin.afdeling.index'));
-});
-Breadcrumbs::for('admin.afdeling.create', function (BreadcrumbTrail $trail) {
-    $trail->parent('admin.afdeling.index');
-    $trail->push('Tambah Afdeling', route('admin.afdeling.create'));
-});
-Breadcrumbs::for('admin.afdeling.edit', function (BreadcrumbTrail $trail) {
-    $trail->parent('admin.afdeling.index');
-    $trail->push('Ubah', route('admin.afdeling.edit', 'id'));
+// PETUGAS
+Breadcrumbs::for('petugas.dashboard', function (BreadcrumbTrail $trail) {
+    $trail->push('Pages', route('petugas.dashboard'));
 });
 
-// supir
-Breadcrumbs::for('admin.supir.index', function (BreadcrumbTrail $trail) {
-    $trail->parent('admin.dashboard');
-    $trail->push('supir', route('admin.supir.index'));
+Breadcrumbs::for('petugas.hasil-panen.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('petugas.dashboard');
+    $trail->push('Hasil Panen', route('petugas.hasil-panen.index'));
 });
-Breadcrumbs::for('admin.supir.create', function (BreadcrumbTrail $trail) {
-    $trail->parent('admin.supir.index');
-    $trail->push('Tambah Data Supir', route('admin.supir.create'));
+Breadcrumbs::for('petugas.hasil-panen.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('petugas.hasil-panen.index');
+    $trail->push('Tambah', route('petugas.hasil-panen.create'));
 });
-Breadcrumbs::for('admin.supir.edit', function (BreadcrumbTrail $trail) {
-    $trail->parent('admin.supir.index');
-    $trail->push('Ubah', route('admin.supir.edit', 'id'));
-});
-
-// profile
-Breadcrumbs::for('admin.profile.index', function (BreadcrumbTrail $trail) {
-    $trail->parent('admin.dashboard');
-    $trail->push('Profile', route('admin.profile.index'));
+Breadcrumbs::for('petugas.hasil-panen.edit', function (BreadcrumbTrail $trail) {
+    $trail->parent('petugas.hasil-panen.index');
+    $trail->push('Ubah', route('petugas.hasil-panen.edit', 'id'));
 });
 
-// pengguna
-Breadcrumbs::for('admin.pengguna.index', function (BreadcrumbTrail $trail) {
-    $trail->parent('admin.dashboard');
-    $trail->push('Pengguna', route('admin.pengguna.index'));
+Breadcrumbs::for('petugas.pemupukan.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('petugas.dashboard');
+    $trail->push('Hasil Panen', route('petugas.pemupukan.index'));
 });
-Breadcrumbs::for('admin.pengguna.edit', function (BreadcrumbTrail $trail) {
-    $trail->parent('admin.pengguna.index');
-    $trail->push('Ubah Kata Sandi', route('admin.pengguna.edit', 'id'));
+Breadcrumbs::for('petugas.pemupukan.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('petugas.pemupukan.index');
+    $trail->push('Tambah', route('petugas.pemupukan.create'));
 });
-
-// afdeling-dashboard
-Breadcrumbs::for('afdeling.dashboard', function (BreadcrumbTrail $trail) {
-    $trail->push('Pages', route('afdeling.dashboard'));
+Breadcrumbs::for('petugas.pemupukan.edit', function (BreadcrumbTrail $trail) {
+    $trail->parent('petugas.pemupukan.index');
+    $trail->push('Ubah', route('petugas.pemupukan.edit', 'id'));
 });
 
-// afdeling-profile
-Breadcrumbs::for('afdeling.profile.index', function (BreadcrumbTrail $trail) {
-    $trail->parent('afdeling.dashboard');
-    $trail->push('Profile', route('afdeling.profile.index'));
+Breadcrumbs::for('petugas.pemeliharaan.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('petugas.dashboard');
+    $trail->push('Pemeliharaan', route('petugas.pemeliharaan.index'));
+});
+Breadcrumbs::for('petugas.pemeliharaan.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('petugas.pemeliharaan.index');
+    $trail->push('Tambah', route('petugas.pemeliharaan.create'));
+});
+Breadcrumbs::for('petugas.pemeliharaan.edit', function (BreadcrumbTrail $trail) {
+    $trail->parent('petugas.pemeliharaan.index');
+    $trail->push('Ubah', route('petugas.pemeliharaan.edit', 'id'));
 });
 
-// afdeling-hasil panen
-Breadcrumbs::for('afdeling.hasil-panen.index', function (BreadcrumbTrail $trail) {
-    $trail->parent('afdeling.dashboard');
-    $trail->push('Pemanenan', route('afdeling.hasil-panen.index'));
+Breadcrumbs::for('petugas.jadwal-tugas.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('petugas.dashboard');
+    $trail->push('Jadwal Tugas', route('petugas.jadwal-tugas.index'));
+});
+Breadcrumbs::for('petugas.jadwal-tugas.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('petugas.jadwal-tugas.index');
+    $trail->push('Tambah', route('petugas.jadwal-tugas.create'));
+});
+Breadcrumbs::for('petugas.jadwal-tugas.edit', function (BreadcrumbTrail $trail) {
+    $trail->parent('petugas.jadwal-tugas.index');
+    $trail->push('Ubah', route('petugas.jadwal-tugas.edit', 'id'));
 });
 
-// afdeling-tambah muatan
-Breadcrumbs::for('afdeling.tambah-muatan.index', function (BreadcrumbTrail $trail) {
-    $trail->parent('afdeling.dashboard');
-    $trail->push('Data Muatan', route('afdeling.tambah-muatan.index'));
+Breadcrumbs::for('petugas.laporan.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('petugas.dashboard');
+    $trail->push('Semua Laporan', route('petugas.laporan.index'));
+});
+Breadcrumbs::for('petugas.pengaturan-pengguna.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('petugas.dashboard');
+    $trail->push('Semua Pengguna', route('petugas.pengaturan-pengguna.index'));
 });
 
-Breadcrumbs::for('afdeling.tambah-muatan.edit', function (BreadcrumbTrail $trail) {
-    $trail->parent('afdeling.tambah-muatan.index');
-    $trail->push('Ubah Muatan', route('afdeling.tambah-muatan.edit', 'id'));
-});
-Breadcrumbs::for('afdeling.tambah-muatan.create', function (BreadcrumbTrail $trail) {
-    $trail->parent('afdeling.tambah-muatan.index');
-    $trail->push('Tambah Muatan Baru', route('afdeling.tambah-muatan.create'));
+Breadcrumbs::for('petugas.pengaturan-pengguna.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('petugas.pengaturan-pengguna.index');
+    $trail->push('Tambah Pengguna', route('petugas.pengaturan-pengguna.create'));
 });
 
-// afdeling-supir
-Breadcrumbs::for('afdeling.supir.index', function (BreadcrumbTrail $trail) {
-    $trail->parent('afdeling.dashboard');
-    $trail->push('Data Supir', route('afdeling.supir.index'));
+//pimpinan
+Breadcrumbs::for('manajer.dashboard', function (BreadcrumbTrail $trail) {
+    $trail->push('Pages', route('manajer.dashboard'));
 });
 
-// afdeling-jadwal-operasional
-Breadcrumbs::for('afdeling.jadwal-operasional.index', function (BreadcrumbTrail $trail) {
-    $trail->parent('afdeling.dashboard');
-    $trail->push('Data Jadwal Operasional', route('afdeling.jadwal-operasional.index'));
+Breadcrumbs::for('manajer.hasil-panen.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('manajer.dashboard');
+    $trail->push('Hasil Panen', route('manajer.hasil-panen.index'));
+});
+Breadcrumbs::for('manajer.hasil-panen.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('manajer.hasil-panen.index');
+    $trail->push('Tambah', route('manajer.hasil-panen.create'));
+});
+Breadcrumbs::for('manajer.hasil-panen.edit', function (BreadcrumbTrail $trail) {
+    $trail->parent('manajer.hasil-panen.index');
+    $trail->push('Ubah', route('manajer.hasil-panen.edit', 'id'));
 });
 
-Breadcrumbs::for('afdeling.jadwal-operasional.edit', function (BreadcrumbTrail $trail) {
-    $trail->parent('afdeling.jadwal-operasional.index');
-    $trail->push('Ubah Jadwal', route('afdeling.jadwal-operasional.edit', 'id'));
+Breadcrumbs::for('manajer.pemupukan.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('manajer.dashboard');
+    $trail->push('Hasil Panen', route('manajer.pemupukan.index'));
 });
-Breadcrumbs::for('afdeling.jadwal-operasional.create', function (BreadcrumbTrail $trail) {
-    $trail->parent('afdeling.jadwal-operasional.index');
-    $trail->push('Tambah Jadwal Baru', route('afdeling.jadwal-operasional.create'));
+Breadcrumbs::for('manajer.pemupukan.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('manajer.pemupukan.index');
+    $trail->push('Tambah', route('manajer.pemupukan.create'));
+});
+Breadcrumbs::for('manajer.pemupukan.edit', function (BreadcrumbTrail $trail) {
+    $trail->parent('manajer.pemupukan.index');
+    $trail->push('Ubah', route('manajer.pemupukan.edit', 'id'));
 });
 
-// pimpinan - dashboard
-Breadcrumbs::for('pimpinan.dashboard', function (BreadcrumbTrail $trail) {
-    $trail->push('Pages', route('pimpinan.dashboard'));
+Breadcrumbs::for('manajer.pemeliharaan.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('manajer.dashboard');
+    $trail->push('Pemeliharaan', route('manajer.pemeliharaan.index'));
+});
+Breadcrumbs::for('manajer.pemeliharaan.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('manajer.pemeliharaan.index');
+    $trail->push('Tambah', route('manajer.pemeliharaan.create'));
+});
+Breadcrumbs::for('manajer.pemeliharaan.edit', function (BreadcrumbTrail $trail) {
+    $trail->parent('manajer.pemeliharaan.index');
+    $trail->push('Ubah', route('manajer.pemeliharaan.edit', 'id'));
 });
 
-Breadcrumbs::for('pimpinan.data-operasional.index', function (BreadcrumbTrail $trail) {
-    $trail->parent('pimpinan.dashboard');
-    $trail->push('Data Operasional', route('pimpinan.data-operasional.index'));
+Breadcrumbs::for('manajer.jadwal-tugas.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('manajer.dashboard');
+    $trail->push('Jadwal Tugas', route('manajer.jadwal-tugas.index'));
 });
-Breadcrumbs::for('pimpinan.data-operasional.form-cetak', function (BreadcrumbTrail $trail) {
-    $trail->parent('pimpinan.data-operasional.index');
-    $trail->push('Cetak', route('pimpinan.data-operasional.form-cetak'));
+Breadcrumbs::for('manajer.jadwal-tugas.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('manajer.jadwal-tugas.index');
+    $trail->push('Tambah', route('manajer.jadwal-tugas.create'));
+});
+Breadcrumbs::for('manajer.jadwal-tugas.edit', function (BreadcrumbTrail $trail) {
+    $trail->parent('manajer.jadwal-tugas.index');
+    $trail->push('Ubah', route('manajer.jadwal-tugas.edit', 'id'));
+});
+
+Breadcrumbs::for('manajer.laporan.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('manajer.dashboard');
+    $trail->push('Semua Laporan', route('manajer.laporan.index'));
+});
+Breadcrumbs::for('manajer.pengaturan-pengguna.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('manajer.dashboard');
+    $trail->push('Semua Pengguna', route('manajer.pengaturan-pengguna.index'));
+});
+
+Breadcrumbs::for('manajer.pengaturan-pengguna.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('manajer.pengaturan-pengguna.index');
+    $trail->push('Tambah Pengguna', route('manajer.pengaturan-pengguna.create'));
 });

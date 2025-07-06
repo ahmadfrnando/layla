@@ -10,8 +10,8 @@
         <div class="card">
             <div class="card-header pb-0 d-flex justify-content-between">
                 <div>
-                    <h6>Data Hasil Panen</h6>
-                    <p class="text-sm">Berikut adalah data hasil panen yang telah tercatat.</p>
+                    <h6>Data Pemupukan</h6>
+                    <p class="text-sm">Berikut adalah data pemupukan yang telah tercatat.</p>
                 </div>
             </div>
             <div class="card-body p-4">
@@ -22,9 +22,9 @@
                                 <th class="text-center text-uppercase text-secondary text-sm font-weight-bolder opacity-7">No</th>
                                 <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Tanggal</th>
                                 <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Karyawan</th>
-                                <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Jumlah Panen</th>
+                                <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Jenis Pupuk</th>
+                                <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Jumlah Pupuk</th>
                                 <th width="30%" class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Catatan</th>
-                                <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -38,7 +38,7 @@
 @push('scripts')
 <script type="text/javascript">
     $(function() {
-        var route = 'manajer.hasil-panen.index';
+        var route = 'manajer.pemupukan.index';
         var selector = ".data-table";
         var columns = [{
                 data: 'DT_RowIndex',
@@ -50,12 +50,17 @@
             {
                 data: 'tanggal',
                 name: 'tanggal',
-                className: 'text-sm',
+                className: 'text-sm'
             },
             {
                 data: 'karyawan',
                 name: 'karyawan',
-                className: 'text-sm',
+                className: 'text-sm'
+            },
+            {
+                data: 'jenis_pupuk',
+                name: 'jenis_pupuk',
+                className: 'text-sm'
             },
             {
                 data: 'jumlah_kg',
@@ -68,24 +73,10 @@
             {
                 data: 'catatan',
                 name: 'catatan',
-                className: 'text-sm',
-            },
-            {
-                data: 'action',
-                name: 'action',
-                className: 'text-center',
-                orderable: false,
-                searchable: false
+                className: 'text-sm'
             }
         ];
         var table = initializeDataTable(selector, route, columns);
-
-         $(document).on('click', '#delete', function() {
-            var id = $(this).data('id');
-            var route = "{{ route('admin.manajemen-karyawan.destroy', ':id') }}";
-            route = route.replace(':id', id);
-            deleteDataAjax(route, table);
-        });
     })
 </script>
 <script src="{{ $chart->cdn() }}"></script>

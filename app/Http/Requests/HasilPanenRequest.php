@@ -20,9 +20,9 @@ class HasilPanenRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
-    {
+    {   
         return [
-            'karyawan_id' => 'required|exists:karyawan,id',
+            'karyawan_id' => 'nullable|exists:karyawan,id',
             'tanggal' => 'required|date|before_or_equal:tomorrow',
             'jumlah_kg' => 'required|numeric|min:0',
             'catatan' => 'nullable|string',

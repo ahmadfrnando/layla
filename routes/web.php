@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\AfdelingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HasilPanenController;
@@ -9,27 +8,32 @@ use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\ManajemenKaryawanController;
 use App\Http\Controllers\Admin\PemeliharaanController;
 use App\Http\Controllers\Admin\PemupukanController;
-use App\Http\Controllers\Admin\PengaturanController;
 use App\Http\Controllers\Admin\PengaturanPenggunaController;
-use App\Http\Controllers\Admin\PenggunaHakAksesController;
 use App\Http\Controllers\Admin\ProfileController;
-use App\Http\Controllers\Admin\SupirController;
+
+use App\Http\Controllers\Petugas\ProfileController as PetugasProfileController;
+use App\Http\Controllers\Petugas\DashboardController as PetugasDashboardController;
+use App\Http\Controllers\Petugas\HasilPanenController as PetugasHasilPanenController;
+use App\Http\Controllers\Petugas\JadwalTugasController as PetugasJadwalTugasController;
+use App\Http\Controllers\Petugas\LaporanController as PetugasLaporanController;
+use App\Http\Controllers\Petugas\PemeliharaanController as PetugasPemeliharaanController;
+use App\Http\Controllers\Petugas\PemupukanController as PetugasPemupukanController;
+use App\Http\Controllers\Petugas\PengaturanPenggunaController as PetugasPengaturanPenggunaController;
+
+use App\Http\Controllers\Manajer\ProfileController as ManajerProfileController;
+use App\Http\Controllers\Manajer\DashboardController as ManajerDashboardController;
+use App\Http\Controllers\Manajer\DataHasilPanenController as ManajerHasilPanenController;
+use App\Http\Controllers\Manajer\KelolaJadwalTugasController as ManajerJadwalTugasController;
+use App\Http\Controllers\Manajer\KelolaLaporanController as ManajerLaporanController;
+use App\Http\Controllers\Manajer\DataPemeliharaanController as ManajerPemeliharaanController;
+use App\Http\Controllers\Manajer\DataPemupukanController as ManajerPemupukanController;
+
 use App\Http\Controllers\AjaxLoadController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\Afdeling\DashboardController as AfdelingDashboardController;
-use App\Http\Controllers\Afdeling\ProfileController as AfdelingProfileController;
-use App\Http\Controllers\Afdeling\SupirController as AfdelingSupirController;
-use App\Http\Controllers\Afdeling\HasilPanenController as AfdelingHasilPanenController;
-use App\Http\Controllers\Afdeling\TambahMuatanController as AfdelingTambahMuatanController;
-use App\Http\Controllers\Afdeling\JadwalOperasionalController as AfdelingJadwalOperasionalController;
-use App\Models\Afdeling;
 use App\Http\Controllers\Pimpinan\DashboardController as PimpinanDashboardController;
 use App\Http\Controllers\Pimpinan\DataOperasionalController as PimpinanDataOperasionalController;
 use App\Http\Controllers\Pimpinan\ProfileController as PimpinanProfileController;
-
-use App\Models\Pemeliharaan;
-use App\Models\Pengangkutan;
-use App\Models\PengangkutanHasilPanen;
+use App\Models\JadwalTugas;
 use App\Models\User;
 
 /*
@@ -69,35 +73,36 @@ Route::middleware(['auth', 'role:1'])->name('admin.')->prefix('admin')->group(fu
     Route::resource('/profile', ProfileController::class);
 });
 
-// Group untuk afdeling tanpa Route::namespace()
-Route::middleware(['auth', 'role:2'])->name('afdeling.')->prefix('afdeling')->group(function () {
-    Route::get('/dashboard', [AfdelingDashboardController::class, 'index'])->name('dashboard');
-    Route::resource('/profile', AfdelingProfileController::class);
-    Route::resource('/supir', AfdelingSupirController::class);
-    Route::resource('/hasil-panen', AfdelingHasilPanenController::class);
-    Route::resource('/tambah-muatan', AfdelingTambahMuatanController::class);
-    Route::resource('/jadwal-operasional', AfdelingJadwalOperasionalController::class);
-    Route::post('/jadwal-operasional/status/{id}/{status}', [AfdelingJadwalOperasionalController::class, 'updateStatus'])->name('jadwal-operasional.status');
-    //
+Route::middleware(['auth', 'role:2'])->name('petugas.')->prefix('petugas')->group(function () {
+    Route::get('/dashboard', [PetugasDashboardController::class, 'index'])->name('dashboard');
+    Route::resource('/hasil-panen', PetugasHasilPanenController::class);
+    Route::resource('/pemupukan', PetugasPemupukanController::class);
+    Route::resource('/pemeliharaan', PetugasPemeliharaanController::class);
+    Route::resource('/jadwal-tugas', PetugasJadwalTugasController::class);
+    Route::post('/jadwal-tugas/status/{id}/{status}', [PetugasJadwalTugasController::class, 'updateStatus'])->name('jadwal-tugas.status');
+    Route::get('/laporan', PetugasLaporanController::class)->name('laporan.index');
+    Route::post('/laporan', PetugasLaporanController::class)->name('laporan.cetak');
+    Route::resource('/pengaturan-pengguna', PetugasPengaturanPenggunaController::class);
+    Route::resource('/profile', PetugasProfileController::class);
 });
 
-// Group untuk pimpinan tanpa Route::namespace()
-Route::middleware(['auth', 'role:3'])->name('pimpinan.')->prefix('pimpinan')->group(function () {
-    Route::get('/dashboard', [PimpinanDashboardController::class, 'index'])->name('dashboard');
-    Route::get('/data-operasional', [PimpinanDataOperasionalController::class, 'index'])->name('data-operasional.index');
-    Route::get('/data-operasional/cetak', [PimpinanDataOperasionalController::class, 'cetak'])->name('data-operasional.form-cetak');
-    Route::post('/data-operasional/cetak', [PimpinanDataOperasionalController::class, 'cetak'])->name('data-operasional.cetak');
-    Route::get('/data-operasional/pdf', [PimpinanDataOperasionalController::class, 'pdf'])->name('data-operasional.pdf');
-    Route::resource('/profile', PimpinanProfileController::class);
+Route::middleware(['auth', 'role:3'])->name('manajer.')->prefix('manajer')->group(function () {
+    Route::get('/dashboard', [ManajerDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/hasil-panen', ManajerHasilPanenController::class)->name('hasil-panen.index');
+    Route::get('/pemupukan', ManajerPemupukanController::class)->name('pemupukan.index');
+    Route::get('/pemeliharaan', ManajerPemeliharaanController::class)->name('pemeliharaan.index');
+    Route::resource('/jadwal-tugas', ManajerJadwalTugasController::class);
+    Route::get('/laporan', ManajerLaporanController::class)->name('laporan.index');
+    Route::post('/laporan', ManajerLaporanController::class)->name('laporan.cetak');
+    Route::resource('/profile', ManajerProfileController::class);
 });
+
 
 Route::get('/test-dashboard', function () {
     return view('template.dashboard');
 });
 Route::get('/get-data', function () {
-    $data = User::with('karyawan')
-        ->select('users.*')
-        ->where('role_id', 2)->get();
+    $data = JadwalTugas::where('karyawan_id', 1)->orderBy('created_at', 'desc')->get();
     return response()->json($data);
 })->name('get-data');
 

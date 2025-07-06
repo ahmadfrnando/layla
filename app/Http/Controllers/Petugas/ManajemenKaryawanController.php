@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Petugas;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PemeliharaanRequest;
-use App\Models\Pemeliharaan;
+use App\Http\Requests\KaryawanRequest;
+use App\Models\Karyawan;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
-class PemeliharaanController extends Controller
+class ManajemenKaryawanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,31 +16,17 @@ class PemeliharaanController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Pemeliharaan::select('*')->orderBy('created_at', 'desc');
+            $data = Karyawan::select('*')->orderBy('created_at', 'desc');
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $btn = ' <a href="' . route('admin.pemeliharaan.edit', $row->id) . '" class="btn btn-sm btn-warning">Edit</a>';
+                    $btn = ' <a href="' . route('admin.manajemen-karyawan.edit', $row->id) . '" class="btn btn-sm btn-warning">Edit</a>';
+                    $btn .= '<button type="button" data-id="' . $row->id . '" id="delete" class="ms-2 btn btn-sm btn-danger">Hapus</button>';
                     return $btn;
-                })
-                ->addColumn('karyawan', function ($row) {
-                    return $row->karyawan->nama ?? '-';
-                })
-                ->addColumn('deskripsi', function ($row) {
-                    return '<span style="white-space: normal !important;">' . $row->deskripsi . '</span>';
-                })
-                ->rawColumns(['action', 'karyawan', 'deskripsi'])
-                ->filterColumn('karyawan', function ($query, $value) {
-                    $query->whereHas('karyawan', function ($q) use ($value) {
-                        $q->where('nama', 'LIKE', '%' . $value . '%');
-                    });
-                })
-                ->filterColumn('deskripsi', function ($query, $value) {
-                    $query->where('deskripsi', 'LIKE', '%' . $value . '%');
                 })
                 ->make(true);
         }
-        return view('pages.admin.pemeliharaan.index');
+        return view('pages.petugas.manajemen-karyawan.index');
     }
 
     /**
@@ -48,21 +34,21 @@ class PemeliharaanController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.pemeliharaan.create');
+        return view('pages.petugas.manajemen-karyawan.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(PemeliharaanRequest $request)
+    public function store(KaryawanRequest $request)
     {
         $validatedData = $request->validated();
         try {
-            $pemeliharaan = Pemeliharaan::create($validatedData);
+            $karyawan = Karyawan::create($validatedData);
             return response()->json([
                 'success' => true,
                 'message' => 'Data berhasil disimpan!',
-                'data' => $pemeliharaan
+                'data' => $karyawan
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
@@ -85,23 +71,23 @@ class PemeliharaanController extends Controller
      */
     public function edit(string $id)
     {
-        $pemeliharaan = Pemeliharaan::findOrFail($id);
-        return view('pages.admin.pemeliharaan.edit', compact('pemeliharaan'));
+        $karyawan = Karyawan::findOrFail($id);
+        return view('pages.petugas.manajemen-karyawan.edit', compact('karyawan'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(PemeliharaanRequest $request, string $id)
+    public function update(KaryawanRequest $request, string $id)
     {
         $validatedData = $request->validated();
         try {
-            $pemeliharaan = Pemeliharaan::findOrFail($id);
-            $pemeliharaan->update($validatedData);
+            $karyawan = Karyawan::findOrFail($id);
+            $karyawan->update($validatedData);
             return response()->json([
                 'success' => true,
                 'message' => 'Data berhasil disimpan!',
-                'data' => $pemeliharaan
+                'data' => $karyawan
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
@@ -116,6 +102,18 @@ class PemeliharaanController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $karyawan = Karyawan::findOrFail($id);
+            $karyawan->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'Data berhasil dihapus!'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ], 500);
+        }
     }
 }

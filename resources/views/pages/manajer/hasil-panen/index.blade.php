@@ -24,7 +24,6 @@
                                 <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Karyawan</th>
                                 <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Jumlah Panen</th>
                                 <th width="30%" class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Catatan</th>
-                                <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -69,23 +68,9 @@
                 data: 'catatan',
                 name: 'catatan',
                 className: 'text-sm',
-            },
-            {
-                data: 'action',
-                name: 'action',
-                className: 'text-center',
-                orderable: false,
-                searchable: false
             }
         ];
         var table = initializeDataTable(selector, route, columns);
-
-         $(document).on('click', '#delete', function() {
-            var id = $(this).data('id');
-            var route = "{{ route('admin.manajemen-karyawan.destroy', ':id') }}";
-            route = route.replace(':id', id);
-            deleteDataAjax(route, table);
-        });
     })
 </script>
 <script src="{{ $chart->cdn() }}"></script>

@@ -1,17 +1,15 @@
-@extends('layouts.manajer')
+@extends('layouts.admin')
 @section('content')
 <div class="row">
     <div class="col-12">
-        <div class="card mb-4">
-            <div class="p-6 m-20 bg-white rounded shadow">
-                {!! $chart->container() !!}
-            </div>
-        </div>
         <div class="card">
             <div class="card-header pb-0 d-flex justify-content-between">
                 <div>
-                    <h6>Data Hasil Panen</h6>
-                    <p class="text-sm">Berikut adalah data hasil panen yang telah tercatat.</p>
+                    <h6>Data Karyawan</h6>
+                    <p class="text-sm">Berikut adalah data karyawan yang telah tercatat.</p>
+                </div>
+                <div>
+                    <a href="{{ route('admin.manajemen-karyawan.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah Karyawan</a>
                 </div>
             </div>
             <div class="card-body p-4">
@@ -20,10 +18,10 @@
                         <thead>
                             <tr>
                                 <th class="text-center text-uppercase text-secondary text-sm font-weight-bolder opacity-7">No</th>
-                                <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Tanggal</th>
-                                <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Karyawan</th>
-                                <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Jumlah Panen</th>
-                                <th width="30%" class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Catatan</th>
+                                <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Nama</th>
+                                <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Jabatan</th>
+                                <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">No Telepon</th>
+                                <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Alamat</th>
                                 <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7"></th>
                             </tr>
                         </thead>
@@ -38,7 +36,7 @@
 @push('scripts')
 <script type="text/javascript">
     $(function() {
-        var route = 'manajer.hasil-panen.index';
+        var route = 'admin.manajemen-karyawan.index';
         var selector = ".data-table";
         var columns = [{
                 data: 'DT_RowIndex',
@@ -48,26 +46,23 @@
                 searchable: false
             },
             {
-                data: 'tanggal',
-                name: 'tanggal',
+                data: 'nama',
+                name: 'nama',
                 className: 'text-sm',
             },
             {
-                data: 'karyawan',
-                name: 'karyawan',
+                data: 'jabatan',
+                name: 'jabatan',
                 className: 'text-sm',
             },
             {
-                data: 'jumlah_kg',
-                name: 'jumlah_kg',
+                data: 'no_telp',
+                name: 'no_telp',
                 className: 'text-sm',
-                render: function(data, type, row) {
-                    return data + ' Kg';
-                }
             },
             {
-                data: 'catatan',
-                name: 'catatan',
+                data: 'alamat',
+                name: 'alamat',
                 className: 'text-sm',
             },
             {
@@ -80,7 +75,7 @@
         ];
         var table = initializeDataTable(selector, route, columns);
 
-         $(document).on('click', '#delete', function() {
+        $(document).on('click', '#delete', function() {
             var id = $(this).data('id');
             var route = "{{ route('admin.manajemen-karyawan.destroy', ':id') }}";
             route = route.replace(':id', id);
@@ -88,8 +83,5 @@
         });
     })
 </script>
-<script src="{{ $chart->cdn() }}"></script>
-
-{{ $chart->script() }}
 @endpush
 @endsection

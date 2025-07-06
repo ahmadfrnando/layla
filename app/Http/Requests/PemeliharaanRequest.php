@@ -22,7 +22,7 @@ class PemeliharaanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'karyawan_id' => 'required|exists:karyawan,id',
+            'karyawan_id' => 'nullable|exists:karyawan,id',
             'tanggal' => 'required|date|before_or_equal:tomorrow',
             'jenis_tindakan' => 'required|string',
             'deskripsi' => 'nullable|string',

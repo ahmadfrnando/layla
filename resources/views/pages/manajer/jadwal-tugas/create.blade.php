@@ -1,49 +1,53 @@
-@extends('layouts.admin')
+@extends('layouts.manajer')
 @section('content')
 <div class="row">
   <div class="col-12">
     <div class="card">
       <div class="card-header pb-0">
         <div class="block align-items-center">
-          <a href="{{ route('admin.pemeliharaan.index') }}" class="btn btn-secondary btn-sm me-2">
+          <a href="{{ route('manajer.jadwal-tugas.index') }}" class="btn btn-secondary btn-sm me-2">
             <i class="fas fa-arrow-left me-1"></i> Kembali
           </a>
-          <p class="mb-0 fs-4 fw-bold">Ubah Data</p>
+          <p class="mb-0 fs-4 fw-bold">Tambah Jadwal</p>
         </div>
       </div>
-      <form id="ubahPemeliharaan">
+      <form id="tambahJadwal">
         @csrf
         @method('POST')
         <div class="card-body">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label for="tanggal" class="form-control-label">Tanggal</label>
-                <input class="form-control" name="tanggal" value="{{ old('tanggal', $pemeliharaan->tanggal) }}" type="date" required>
+                <label for="tanggal_tugas" class="form-control-label">Tanggal Tugas</label>
+                <input class="form-control" name="tanggal_tugas" value="{{ old('tanggal_tugas') }}" type="date" required>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="example-text-input" class="form-control-label">Karyawan</label>
+                <label for="example-text-input" class="form-control-label">Nama Karyawan</label>
                 <select id="karyawan_id" name="karyawan_id" style="width: 100%; height: 100%" required>
                 </select>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="jenis_tindakan" class="form-control-label">Jenis Pemeliharaan</label>
-                <input class="form-control" name="jenis_tindakan" value="{{ old('jenis_tindakan', $pemeliharaan->jenis_tindakan) }}" type="text" oninput="capitalizeWords(this)" required>
+                <label for="jenis_pupuk" class="form-control-label">Status</label>
+                <select class="form-control" name="status" required>
+                  <option value="">Pilih Status</option>
+                  <option value="proses" {{ old('status') == 'proses' ? 'selected' : '' }}>Belum Selesai</option>
+                  <option value="selesai" {{ old('status') == 'selesai' ? 'selected' : '' }}>Selesai</option>
+                </select>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="deskripsi" class="form-control-label">Deskripsi</label>
-                <textarea class="form-control" name="deskripsi" required>{{ old('deskripsi', $pemeliharaan->deskripsi) }}</textarea>
+                <label for="deskripsi_tugas" class="form-control-label">Deskripsi Tugas</label>
+                <textarea class="form-control" name="deskripsi_tugas" required>{{ old('deskripsi_tugas') }}</textarea>
               </div>
             </div>
             <div class="col-12 mt-3">
               <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary btn-sm">Simpan Perubahan Pemeliharaan</button>
+                <button type="submit" class="btn btn-primary btn-sm">Simpan Data</button>
               </div>
             </div>
           </div>
@@ -55,10 +59,10 @@
 @push('scripts')
 <script type="text/javascript">
   $(function() {
-    let formSelector = '#ubahPemeliharaan';
-    let actionUrl = "{{ route('admin.pemeliharaan.update',  $pemeliharaan->id) }}";
+    let formSelector = '#tambahJadwal';
+    let actionUrl = "{{ route('manajer.jadwal-tugas.store') }}";
     let successMessage = 'Data berhasil disimpan!';
-    let redirectUrl = "{{ route('admin.pemeliharaan.index') }}";
+    let redirectUrl = "{{ route('manajer.jadwal-tugas.index') }}";
 
     submitFormAjax(formSelector, actionUrl, successMessage, redirectUrl);
 
