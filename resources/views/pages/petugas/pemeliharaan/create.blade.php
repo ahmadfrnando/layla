@@ -24,6 +24,13 @@
             </div>
             <div class="col-md-6">
               <div class="form-group">
+                <label for="example-text-input" class="form-control-label">Nama Karyawan</label>
+                <select id="karyawan_id" name="karyawan_id" style="width: 100%; height: 100%" required>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
                 <label for="jenis_tindakan" class="form-control-label">Jenis Pemeliharaan</label>
                 <input class="form-control" name="jenis_tindakan" value="{{ old('jenis_tindakan') }}" type="text" oninput="capitalizeWords(this)" required>
               </div>
@@ -55,6 +62,25 @@
 
     submitFormAjax(formSelector, actionUrl, successMessage, redirectUrl);
 
+    $('#karyawan_id').select2({
+      placeholder: 'Pilih Karyawan',
+      allowClear: true,
+      width: 'resolve',
+      ajax: {
+        url: route('search.karyawan'),
+        dataType: 'json',
+        processResults: data => {
+          return {
+            results: data.map(res => {
+              return {
+                text: res.nama,
+                id: res.id,
+              }
+            })
+          }
+        }
+      }
+    });
   });
 </script>
 @endpush

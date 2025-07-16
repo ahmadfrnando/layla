@@ -24,6 +24,13 @@
             </div>
             <div class="col-md-6">
               <div class="form-group">
+                <label for="example-text-input" class="form-control-label">Nama Karyawan</label>
+                <select id="karyawan_id" name="karyawan_id" style="width: 100%; height: 100%" required>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
                 <label for="jenis_pupuk" class="form-control-label">Jenis Pupuk</label>
                 <input class="form-control" id="jenis_pupuk" name="jenis_pupuk" value="{{ old('jenis_pupuk') }}" type="text" required>
               </div>
@@ -35,7 +42,7 @@
                 <div class="form-text">Masukkan jumlah pupuk dalam satuan kg</div>
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-12">
               <div class="form-group">
                 <label for="catatan" class="form-control-label">Catatan</label>
                 <textarea class="form-control" name="catatan" required>{{ old('catatan') }}</textarea>
@@ -61,6 +68,26 @@
     let redirectUrl = "{{ route('petugas.pemupukan.index') }}";
 
     submitFormAjax(formSelector, actionUrl, successMessage, redirectUrl);
+
+    $('#karyawan_id').select2({
+      placeholder: 'Pilih Karyawan',
+      allowClear: true,
+      width: 'resolve',
+      ajax: {
+        url: route('search.karyawan'),
+        dataType: 'json',
+        processResults: data => {
+          return {
+            results: data.map(res => {
+              return {
+                text: res.nama,
+                id: res.id,
+              }
+            })
+          }
+        }
+      }
+    });
   });
 </script>
 @endpush

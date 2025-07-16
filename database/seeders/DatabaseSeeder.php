@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\JadwalTugas;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,12 +23,27 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('123'),
             'role_id' => 2,
         ]);
+
+        \App\Models\User::factory()->create([
+            'name' => 'admin',
+            'username' => 'admin',
+            'password' => bcrypt('123'),
+            'role_id' => 1,
+        ]);
         
-        // \App\Models\User::factory()->create([
-        //     'name' => 'manajer',
-        //     'username' => 'manajer',
-        //     'password' => bcrypt('123'),
-        //     'role_id' => 3,
-        // ]);
+        \App\Models\User::factory()->create([
+            'name' => 'manajer',
+            'username' => 'manajer',
+            'password' => bcrypt('123'),
+            'role_id' => 3,
+        ]);
+
+        $this->call([
+            KaryawanSeeder::class,
+            HasilPanenSeeder::class,
+            PemupukanSeeder::class,
+            PemeliharaanSeeder::class,
+            JadwalTugasSeeder::class
+        ]);
     }
 }
