@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cetak Laporan Hasil Panen</title>
+    <title>Cetak Laporan Pemupukan</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -42,7 +42,7 @@
 
 <body>
     <div class="title">
-        <h2>Laporan Hasil Panen</h2>
+        <h2>Laporan Hasil Pemupukan</h2>
     </div>
     <div class="date-range">
         <p>Periode: {{ $tanggal_mulai }} - {{ $tanggal_selesai }}</p>

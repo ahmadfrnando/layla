@@ -24,15 +24,35 @@
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="example-text-input" class="form-control-label">Nama Karyawan</label>
+                <label for="karyawan_id" class="form-control-label">Nama Karyawan</label>
                 <select id="karyawan_id" name="karyawan_id" style="width: 100%; height: 100%" required>
                 </select>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
+                <label for="blok" class="form-control-label">Blok</label>
+                <input class="form-control" name="blok" id="blok" value="{{ old('tanggal') }}" type="text" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="toros_besar_kg" class="form-control-label">Jumlah Toros Besar</label>
+                <input class="form-control" id="toros_besar_kg" name="toros_besar_kg" value="{{ old('toros_besar_kg') }}" type="text" required>
+                <div class="form-text">Masukkan jumlah muatan dalam satuan kg</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="toros_kecil_kg" class="form-control-label">Jumlah Toros Kecil</label>
+                <input class="form-control" id="toros_kecil_kg" name="toros_kecil_kg" value="{{ old('toros_kecil_kg') }}" type="text" required>
+                <div class="form-text">Masukkan jumlah muatan dalam satuan kg</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
                 <label for="jumlah_kg" class="form-control-label">Jumlah Muatan</label>
-                <input class="form-control" id="jumlah_kg" name="jumlah_kg" value="{{ old('jumlah_kg') }}" type="text" required>
+                <input class="form-control" id="jumlah_kg" name="jumlah_kg" value="{{ old('jumlah_kg') }}" type="text" readonly required>
                 <div class="form-text">Masukkan jumlah muatan dalam satuan kg</div>
               </div>
             </div>
@@ -56,6 +76,13 @@
 @push('scripts')
 <script type="text/javascript">
   $(function() {
+
+    $('#toros_besar_kg, #toros_kecil_kg').on('input', function() {
+      let torosBesarKg = parseFloat($('#toros_besar_kg').val() || 0);
+      let torosKecilKg = parseFloat($('#toros_kecil_kg').val() || 0);
+      let totalKg = torosBesarKg + torosKecilKg;
+      $('#jumlah_kg').val(totalKg);
+    });
     let formSelector = '#tambahHasilPanen';
     let actionUrl = "{{ route('petugas.hasil-panen.store') }}";
     let successMessage = 'Data berhasil disimpan!';

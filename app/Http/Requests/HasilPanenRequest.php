@@ -22,9 +22,13 @@ class HasilPanenRequest extends FormRequest
     public function rules(): array
     {   
         return [
+            'karyawan_id' => 'required|exists:karyawan,id',
+            'toros_besar_kg' => 'required|numeric|min:1',
+            'toros_kecil_kg' => 'required|numeric|min:1',
             'tanggal' => 'required|date|before_or_equal:tomorrow',
-            'jumlah_kg' => 'required|numeric|min:0',
+            'jumlah_kg' => 'required|numeric|min:1',
             'catatan' => 'nullable|string',
+            'blok' => 'required|string',
         ];
     }
 

@@ -24,7 +24,7 @@ class PemupukanRequest extends FormRequest
         return [
             'karyawan_id' => 'required|exists:karyawan,id',
             'tanggal' => 'required|date|before_or_equal:tomorrow',
-            'jumlah_kg' => 'required|numeric|min:0',
+            'jumlah_kg' => 'required|numeric|min:1',
             'jenis_pupuk' => 'required|string',
             'catatan' => 'nullable|string',
         ];
