@@ -32,7 +32,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="blok" class="form-control-label">Blok</label>
-                <input class="form-control" name="blok" id="blok" value="{{ old('tanggal') }}" type="text" required>
+                <input class="form-control" name="blok" id="blok" value="{{ old('blok') }}" type="text" required>
               </div>
             </div>
             <div class="col-md-6">

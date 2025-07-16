@@ -50,10 +50,16 @@
     <table class="table">
         <thead>
             <tr>
-                <th>No</th>
-                <th>Tanggal</th>
-                <th>Nama Karyawan</th>
-                <th>Muatan</th>
+                <th rowspan="2">No</th>
+                <th rowspan="2">Tanggal</th>
+                <th rowspan="2">Blok</th>
+                <th rowspan="2">Nama Karyawan</th>
+                <th colspan="2">Toros</th>
+                <th rowspan="2">Jumlah</th>
+            </tr>
+            <tr>
+                <th>Besar</th>
+                <th>Kecil</th>
             </tr>
         </thead>
         <tbody>
@@ -61,7 +67,10 @@
             <tr>
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $item->tanggal }}</td>
+                <td>{{ $item->blok }}</td>
                 <td>{{ $item->karyawan->nama }}</td>
+                <td>{{ $item->toros_berat_kg }}</td>
+                <td>{{ $item->toros_kecil_kg }}</td>
                 <td>{{ $item->jumlah_kg }}</td>
             </tr>
             @endforeach
