@@ -15,20 +15,10 @@ class PemupukanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    protected $karyawan_id;
-
-    public function __construct()
-    {
-        $this->middleware(function ($request, $next) {
-            $this->karyawan_id = Karyawan::where('user_id', auth()->id())->first()->id;
-
-            return $next($request);
-        });
-    }
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Pemupukan::where('karyawan_id', $this->karyawan_id)->orderBy('created_at', 'desc');
+            $data = Pemupukan::select('*')->orderBy('created_at', 'desc');
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
@@ -61,9 +51,6 @@ class PemupukanController extends Controller
     public function store(PemupukanRequest $request)
     {
         $validatedData = $request->validated();
-        if (!isset($validatedData['karyawan_id'])) {
-            $validatedData['karyawan_id'] = $validatedData['karyawan_id'] ?? $this->karyawan_id;
-        }
         try {
             $pemupukan = Pemupukan::create($validatedData);
             return response()->json([
@@ -102,9 +89,6 @@ class PemupukanController extends Controller
     public function update(PemupukanRequest $request, string $id)
     {
         $validatedData = $request->validated();
-        if (!isset($validatedData['karyawan_id'])) {
-            $validatedData['karyawan_id'] = $this->karyawan_id;
-        }
         try {
             $pemupukan = Pemupukan::findOrFail($id);
             $pemupukan->update($validatedData);

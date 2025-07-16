@@ -22,7 +22,6 @@ class HasilPanenRequest extends FormRequest
     public function rules(): array
     {   
         return [
-            'karyawan_id' => 'nullable|exists:karyawan,id',
             'tanggal' => 'required|date|before_or_equal:tomorrow',
             'jumlah_kg' => 'required|numeric|min:0',
             'catatan' => 'nullable|string',

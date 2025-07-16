@@ -30,6 +30,12 @@
             </div>
             <div class="col-md-6">
               <div class="form-group">
+                <label for="tanggal_lahir" class="form-control-label">Tanggal Lahir</label>
+                <input class="form-control" name="tanggal_lahir" value="{{ old('tanggal_lahir', $karyawan->tanggal_lahir) }}" type="date" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
                 <label for="no_telp" class="form-control-label">Nomor Telepon</label>
                 <input class="form-control" value="{{ old('no_telp', $karyawan->no_telp) }}" name="no_telp" type="text" required>
               </div>

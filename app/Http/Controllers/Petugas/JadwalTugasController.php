@@ -16,21 +16,10 @@ class JadwalTugasController extends Controller
      * Display a listing of the resource.
      */
 
-    protected $karyawan_id;
-
-    public function __construct()
-    {
-        $this->middleware(function ($request, $next) {
-            $this->karyawan_id = Karyawan::where('user_id', auth()->id())->first()->id;
-
-            return $next($request);
-        });
-    }
-
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = JadwalTugas::where('karyawan_id', $this->karyawan_id)->orderBy('created_at', 'desc');
+            $data = JadwalTugas::select('*')->orderBy('created_at', 'desc');
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('status', function ($row) {

@@ -15,12 +15,12 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         // \App\Models\Pekerja::factory(20)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'admin',
-        //     'username' => 'admin',
-        //     'password' => bcrypt('123'),
-        //     'role_id' => 1,
-        // ]);
+        \App\Models\User::factory()->create([
+            'name' => 'mandor',
+            'username' => 'mandor',
+            'password' => bcrypt('123'),
+            'role_id' => 2,
+        ]);
         
         // \App\Models\User::factory()->create([
         //     'name' => 'manajer',

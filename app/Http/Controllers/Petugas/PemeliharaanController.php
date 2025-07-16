@@ -14,21 +14,10 @@ class PemeliharaanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    protected $karyawan_id;
-
-    public function __construct()
-    {
-        $this->middleware(function ($request, $next) {
-            $this->karyawan_id = Karyawan::where('user_id', auth()->id())->first()->id;
-
-            return $next($request);
-        });
-    }
-
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Pemeliharaan::where('karyawan_id', $this->karyawan_id)->orderBy('created_at', 'desc');
+            $data = Pemeliharaan::select('*')->orderBy('created_at', 'desc');
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
@@ -61,9 +50,6 @@ class PemeliharaanController extends Controller
     public function store(PemeliharaanRequest $request)
     {
         $validatedData = $request->validated();
-        if (!isset($validatedData['karyawan_id'])) {
-            $validatedData['karyawan_id'] = $this->karyawan_id;
-        }
         try {
             $pemeliharaan = Pemeliharaan::create($validatedData);
             return response()->json([
@@ -102,9 +88,6 @@ class PemeliharaanController extends Controller
     public function update(PemeliharaanRequest $request, string $id)
     {
         $validatedData = $request->validated();
-        if (!isset($validatedData['karyawan_id'])) {
-            $validatedData['karyawan_id'] = $this->karyawan_id;
-        }
         try {
             $pemeliharaan = Pemeliharaan::findOrFail($id);
             $pemeliharaan->update($validatedData);
