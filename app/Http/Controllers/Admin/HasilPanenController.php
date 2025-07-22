@@ -29,7 +29,7 @@ class HasilPanenController extends Controller
                     return $row->karyawan->nama ?? '-';
                 })
                 ->addColumn('catatan', function ($row) {
-                    return '<span style="white-space: normal !important;">' . $row->catatan . '</span>';
+                    return $row->catatan ? '<span style="white-space: normal !important;">' . $row->catatan . '</span>' : '-';
                 })
                 ->rawColumns(['action', 'karyawan', 'catatan'])
                 ->filterColumn('karyawan', function ($query, $value) {

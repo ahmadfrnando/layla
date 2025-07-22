@@ -26,9 +26,30 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
   <style>
+    p,
+    span,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    td,
+    tr,
+    th,
+    table,
+    thead,
+    tbody,
+    label,
+    div,
+    .page-link {
+      color: #000 !important;
+    }
+
     #DataTables_Table_0_next a,
     #DataTables_Table_0_previous a {
       font-size: 0;
+      color: #000 !important;
       /* Menghapus teks */
     }
 
@@ -37,6 +58,7 @@
       font-size: 18px;
       /* Ukuran ikon */
       padding: 5px;
+      color: #000 !important;
       /* Menambahkan jarak di sekitar ikon */
     }
 
@@ -88,6 +110,8 @@
       }
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
+
+    $('th').removeClass('text-secondary opacity-7');
   </script>
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->

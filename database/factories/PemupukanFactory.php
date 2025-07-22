@@ -19,13 +19,12 @@ class PemupukanFactory extends Factory
 
     {
         return [
-            'tanggal' => $this->faker->dateTimeBetween('-1 year', 'now'),
+            'tanggal' => $this->faker->dateTimeBetween('2025-06-24', '2025-07-10'),
             'jumlah_kg' => $this->faker->numberBetween(100, 1000),
             'jenis_pupuk' => $this->faker->randomElement(['Urea', 'NPK', 'Organik', 'KCL']),
-            'karyawan_id' => \App\Models\Karyawan::factory()->create()->id,
+            'karyawan_id' => \App\Models\Karyawan::pluck('id')->random(),
             'created_at' => now(),
             'updated_at' => now(),
-            'catatan' => $this->faker->sentence(6, true),
         ];
     }
 }

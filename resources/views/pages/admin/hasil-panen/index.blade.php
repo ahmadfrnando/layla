@@ -17,7 +17,9 @@
                                 <th class="text-center text-uppercase text-secondary text-sm font-weight-bolder opacity-7">No</th>
                                 <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Tanggal</th>
                                 <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Karyawan</th>
-                                <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Jumlah Panen</th>
+                                <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Toros Besar</th>
+                                <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Toros Kecil</th>
+                                <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Total</th>
                                 <th width="30%" class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Catatan</th>
                                 <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7"></th>
                             </tr>
@@ -46,11 +48,33 @@
                 data: 'tanggal',
                 name: 'tanggal',
                 className: 'text-sm',
+                render: function(data, type, row) {
+                    data = new Date(data);
+                    var days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+                    var dayName = days[data.getDay()];
+                    return dayName + ', ' + data.getDate() + '-' + (data.getMonth() + 1) + '-' + data.getFullYear();
+                }
             },
             {
                 data: 'karyawan',
                 name: 'karyawan',
                 className: 'text-sm',
+            },
+            {
+                data: 'toros_besar_kg',
+                name: 'toros_besar_kg',
+                className: 'text-sm',
+                render: function(data, type, row) {
+                    return data + ' Kg';
+                }
+            },
+            {
+                data: 'toros_kecil_kg',
+                name: 'toros_kecil_kg',
+                className: 'text-sm',
+                render: function(data, type, row) {
+                    return data + ' Kg';
+                }
             },
             {
                 data: 'jumlah_kg',

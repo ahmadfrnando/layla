@@ -21,12 +21,15 @@ class KaryawanFactory extends Factory
 
 
     public function definition()
-    {
+    {   
+        $namaKaryawan = [
+            'Ento', 'Udin', 'Pardi', 'Suwel', 'Ruswono', 'Pendi', 'Pardi', 'Udin'
+        ];
         return [
-            'nama' => $this->faker->name,
-            'jabatan' => $this->faker->randomElement(['Mandor', 'Admin', 'Petugas']),
+            'nama' => $this->faker->randomElement($namaKaryawan),
+            'jabatan' => 'Karyawan',
             'tanggal_lahir' => $this->faker->date(),
-            'alamat' => $this->faker->address,
+            'alamat' => 'Medan',
             'no_telp' => $this->faker->phoneNumber,
         ];
     }

@@ -55,14 +55,14 @@
                     <span class="nav-link-text ms-1">Jadwal Tugas</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('admin.pengaturan-pengguna.*') ? 'active' : '' }}" href="{{ route('admin.pengaturan-pengguna.index') }}">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="fas fa-cogs text-dark text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Pengaturan Pengguna</span>
                 </a>
-            </li>
+            </li> -->
         </ul>
     </div>
 </aside>

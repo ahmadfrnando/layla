@@ -19,6 +19,7 @@
                             <tr>
                                 <th class="text-center text-uppercase text-secondary text-sm font-weight-bolder opacity-7">No</th>
                                 <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Tanggal</th>
+                                <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Karyawan</th>
                                 <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Jenis Pupuk</th>
                                 <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Jumlah Pupuk</th>
                                 <th width="30%" class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Catatan</th>
@@ -48,6 +49,17 @@
             {
                 data: 'tanggal',
                 name: 'tanggal',
+                className: 'text-sm',
+                render: function(data, type, row) {
+                    data = new Date(data);
+                    var days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+                    var dayName = days[data.getDay()];
+                    return dayName + ', ' + data.getDate() + '-' + (data.getMonth() + 1) + '-' + data.getFullYear();
+                }
+            },
+            {
+                data: 'karyawan',
+                name: 'karyawan',
                 className: 'text-sm'
             },
             {

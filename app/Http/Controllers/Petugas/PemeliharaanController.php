@@ -24,12 +24,20 @@ class PemeliharaanController extends Controller
                     $btn = ' <a href="' . route('petugas.pemeliharaan.edit', $row->id) . '" class="btn btn-sm btn-warning">Edit</a>';
                     return $btn;
                 })
-                ->addColumn('deskripsi', function ($row) {
-                    return '<span style="white-space: normal !important;">' . $row->deskripsi . '</span>';
+                ->addColumn('karyawan', function ($row) {
+                    return $row->karyawan->nama ?? '-';
                 })
-                ->rawColumns(['action', 'deskripsi'])
+                ->addColumn('deskripsi', function ($row) {
+                    return $row->deskripsi ? '<span style="white-space: normal !important;">' . $row->deskripsi . '</span>' : '-';
+                })
+                ->rawColumns(['action', 'deskripsi', 'karyawan'])
                 ->filterColumn('deskripsi', function ($query, $value) {
                     $query->where('deskripsi', 'LIKE', '%' . $value . '%');
+                })
+                ->filterColumn('karyawan', function ($query, $value) {
+                    $query->whereHas('karyawan', function ($q) use ($value) {
+                        $q->where('nama', 'LIKE', '%' . $value . '%');
+                    });
                 })
                 ->make(true);
         }

@@ -26,12 +26,20 @@ class HasilPanenController extends Controller
                     $btn = ' <a href="' . route('petugas.hasil-panen.edit', $row->id) . '" class="btn btn-sm btn-warning">Edit</a>';
                     return $btn;
                 })
+                ->addColumn('karyawan', function ($row) {
+                    return $row->karyawan->nama ?? '-';
+                })
                 ->addColumn('catatan', function ($row) {
-                    return '<span style="white-space: normal !important;">' . $row->catatan . '</span>';
+                    return $row->catatan ? '<span style="white-space: normal !important;">' . $row->catatan . '</span>' : '-';
                 })
                 ->rawColumns(['action', 'catatan'])
                 ->filterColumn('catatan', function ($query, $value) {
                     $query->where('catatan', 'LIKE', '%' . $value . '%');
+                })
+                ->filterColumn('karyawan', function ($query, $value) {
+                    $query->whereHas('karyawan', function ($q) use ($value) {
+                        $q->where('nama', 'LIKE', '%' . $value . '%');
+                    });
                 })
                 ->make(true);
         }

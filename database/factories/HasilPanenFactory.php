@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\HasilPanen;
+use App\Models\Karyawan;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,10 +19,10 @@ class HasilPanenFactory extends Factory
 
     protected $model = HasilPanen::class;
     public function definition(): array
-    {
+    {   
         return [
-            'tanggal' => $this->faker->dateTimeBetween('-1 year', 'now')->format('Y-m-d'),
-            'karyawan_id' => \App\Models\Karyawan::factory()->create()->id,
+            'tanggal' => $this->faker->dateTimeBetween('2025-06-03', '2025-06-06')->format('Y-m-d'),
+            'karyawan_id' => Karyawan::pluck('id')->random(),
             'toros_besar_kg' => $this->faker->numberBetween(1, 100),
             'toros_kecil_kg' => $this->faker->numberBetween(1, 100),
             'jumlah_kg' => function (array $attributes) {
