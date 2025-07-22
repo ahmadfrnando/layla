@@ -50,7 +50,13 @@
             {
                 data: 'tanggal',
                 name: 'tanggal',
-                className: 'text-sm'
+                className: 'text-sm',
+                render: function(data, type, row) {
+                    data = new Date(data);
+                    var days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+                    var dayName = days[data.getDay()];
+                    return dayName + ', ' + data.getDate() + '-' + (data.getMonth() + 1) + '-' + data.getFullYear();
+                }
             },
             {
                 data: 'karyawan',

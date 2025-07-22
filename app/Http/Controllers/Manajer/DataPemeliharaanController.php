@@ -23,7 +23,7 @@ class DataPemeliharaanController extends Controller
                     return $row->karyawan->nama ?? '-';
                 })
                 ->addColumn('deskripsi', function ($row) {
-                    return '<span style="white-space: normal !important;">' . $row->deskripsi . '</span>';
+                    return $row->deskripsi ? '<span style="white-space: normal !important;">' . $row->deskripsi . '</span>' : '-';
                 })
                 ->rawColumns(['karyawan', 'deskripsi'])
                 ->filterColumn('karyawan', function ($query, $value) {
@@ -68,7 +68,7 @@ class DataPemeliharaanController extends Controller
      */
     public function edit(string $id)
     {
-       //
+        //
     }
 
     /**

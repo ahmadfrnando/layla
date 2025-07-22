@@ -24,7 +24,7 @@ class DataPemupukanController extends Controller
                     return $row->karyawan->nama ?? '-';
                 })
                 ->addColumn('catatan', function ($row) {
-                    return '<span style="white-space: normal !important;">' . $row->catatan . '</span>';
+                    return $row->catatan ? '<span style="white-space: normal !important;">' . $row->catatan . '</span>' : '-';
                 })
                 ->rawColumns(['karyawan', 'catatan'])
                 ->filterColumn('karyawan', function ($query, $value) {
@@ -53,7 +53,7 @@ class DataPemupukanController extends Controller
      */
     public function store(PemupukanRequest $request)
     {
-       //
+        //
     }
 
     /**
@@ -69,7 +69,7 @@ class DataPemupukanController extends Controller
      */
     public function edit(string $id)
     {
-       //
+        //
     }
 
     /**
