@@ -8,8 +8,8 @@
                         <a href="{{ route('manajer.profile.index') }}">
                             <button class="nav-link text-white font-weight-bold px-0">
                                 <i class="fa fa-user me-sm-1"></i>
-                                <span class="d-sm-inline d-none">Profil</span>
-                                <span class="d-sm-inline d-none">({{ Auth::user()->role->role }})</span>
+                                <span class="d-sm-inline d-none text-white">Profil</span>
+                                <span class="d-sm-inline d-none text-white">({{ Auth::user()->role->role }})</span>
                             </button>
                         </a>
                     </li>
@@ -18,7 +18,7 @@
                             @csrf
                             <button type="submit" class="nav-link text-white font-weight-bold px-0">
                                 <i class="fa fa-sign-out-alt me-sm-1"></i>
-                                <span class="d-sm-inline d-none">Keluar</span>
+                                <span class="d-sm-inline d-none text-white">Keluar</span>
                             </button>
                         </form>
                     </li>
