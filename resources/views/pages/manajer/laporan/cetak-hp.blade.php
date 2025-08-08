@@ -69,7 +69,7 @@
                 <td>{{ $item->tanggal }}</td>
                 <td>{{ $item->blok }}</td>
                 <td>{{ $item->karyawan->nama }}</td>
-                <td>{{ $item->toros_berat_kg }}</td>
+                <td>{{ $item->toros_besar_kg }}</td>
                 <td>{{ $item->toros_kecil_kg }}</td>
                 <td>{{ $item->jumlah_kg }}</td>
             </tr>

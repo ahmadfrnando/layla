@@ -49,6 +49,7 @@ use App\Models\User;
 
 Route::middleware(['web'])->group(function () {
     // route yang ada
+    
 });
 
 Route::fallback(function () {
